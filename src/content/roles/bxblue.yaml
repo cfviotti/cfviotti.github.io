@@ -1,0 +1,16 @@
+title: "Front-End Developer"
+duration: "2020 – 2021 (4m)"
+location: "Remote"
+company: "BxBlue"
+info: "Backed by Y Combinator"
+responsibilities:
+  - "Led the design and implemented the user experience of a WebRTC video-contract feature for the bxblue payday loan platform, cutting e-signature costs by letting users record themselves speaking key contract terms out loud that are dynamically shown onscreen."
+stack:
+  - "React"
+  - "Styled Components"
+  - "Jest"
+  - "Enzyme"
+  - "SASS"
+  - "Rails"
+design:
+  - "Figma"

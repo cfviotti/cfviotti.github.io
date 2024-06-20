@@ -1,0 +1,35 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Role from '../components/Role.astro';
+import SummarySection from '../components/SummarySection.astro';
+import SummarySectionList from '../components/SummarySectionList.astro';
+import { getCollection, getEntry } from 'astro:content';
+import { Content as EducationSection } from '../content/summary-sections/education.md';
+
+const roles = await getCollection('roles');
+const summarySections = await getCollection('summary-sections');
+const filteredSections = summarySections.filter(section => section.id !== 'education');
+---
+
+<Layout title="Caio Viotti's CV - IT'S CVCV">
+  <aside>
+    <h1>Caio Viotti</h1>
+    <h2>UX Engineer</h2>
+
+    {filteredSections.map(section => (
+      <SummarySection title={section.data.title}>
+        {section.data.subsections?.map(subsection => (
+          <SummarySectionList title={subsection.title} items={subsection.items} />
+        ))}
+      </SummarySection>
+    ))}
+
+    <EducationSection />
+  </aside>
+  <main>
+    <h3>Work history</h3>
+    { roles.map(({ data }) => (
+      <Role {...data} />
+    ))}
+  </main>
+</Layout>

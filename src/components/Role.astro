@@ -1,0 +1,44 @@
+---
+interface Props {
+  title: string;
+  duration: string;
+  location: string;
+  company: string;
+  info: string;
+  responsibilities: string[];
+  stack: string[];
+  design: string[];
+}
+
+const { title, duration, location, company, info, responsibilities, stack, design } = Astro.props;
+---
+<section>
+  <h4>{title}</h4>
+  <b>{duration}</b>
+  <p>{location} @ <b>{company}</b></p>
+  <b>{info}</b>
+  {responsibilities?.length > 0 &&
+    <ul>
+      {responsibilities.map(responsibility => (
+        <li> {responsibility} </li>
+      ))}
+    </ul>
+  }
+  <section>
+    <h5>Stack</h5>
+    {stack?.length > 0 &&
+      <ul>
+        {stack.map(item => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    }
+    {design?.length > 0 &&
+      <ul>
+        {design.map(tool => (
+          <li>{tool}</li>
+        ))}
+      </ul>
+    }
+  </section>
+</section>
