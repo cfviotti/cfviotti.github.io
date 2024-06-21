@@ -89,7 +89,6 @@ renderedRoles.sort((a, b) => {
 
     a {
       text-decoration: underline;
-      position: relative;
       padding-right: 0.85em;
       color: inherit;
 
@@ -135,10 +134,10 @@ renderedRoles.sort((a, b) => {
     background-color: black;
 
     .me {
-      height: 0;
-      width: 0;
       opacity: 0.01;
       font-size: var(--font-size-0);
+      text-wrap: nowrap;
+      margin-top: -15px;
     }
 
     .logo {
@@ -228,6 +227,7 @@ renderedRoles.sort((a, b) => {
   }
 
   body {
+    padding: 0;
     > *:not(.cv-page) {
       display: none !important;
     }
