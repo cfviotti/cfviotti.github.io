@@ -56,9 +56,11 @@ const skillsSection = await getEntry('summary-sections', 'skills');
     </aside>
     <main class="work-history">
       <h3>Work history</h3>
-      { roles.map(({ data }) => (
-        <Role {...data} />
-      ))}
+      <div class="roles">
+        { roles.map(({ data }) => (
+          <Role {...data} />
+        ))}
+      </div>
     </main>
   </div>
 </Layout>
@@ -94,7 +96,7 @@ const skillsSection = await getEntry('summary-sections', 'skills');
     }
 
     h4 {
-      font-size: var(--font-size-0);
+      font-size: 14px;
       font-weight: var(--font-weight-7);
     }
   }
@@ -111,6 +113,7 @@ const skillsSection = await getEntry('summary-sections', 'skills');
       height: 0;
       width: 0;
       opacity: 0.01;
+      font-size: var(--font-size-0);
     }
 
     .logo {
@@ -172,5 +175,37 @@ const skillsSection = await getEntry('summary-sections', 'skills');
   .work-history {
     background-color: white;
     padding: var(--size-5);
+    color: var(--gray-9);
+
+    h3 {
+      margin-bottom: var(--size-3);
+    }
+
+    .roles {
+      display: flex;
+      flex-direction: column;
+      gap: var(--size-3);
+    }
   }
+
+@media print {
+  html {
+    background-color: unset;
+
+    > *:not(body, head) {
+      display: none !important;
+    }
+  }
+
+  body {
+    > *:not(.cv-page) {
+      display: none !important;
+    }
+  }
+
+  .cv-page {
+    margin: 0;
+    outline: none;
+  }
+}
 </style>
