@@ -1,24 +1,49 @@
 ---
 interface Props {
   title: string;
-  duration: string;
+  begin: string;
+  end: string;
   location: string;
   company: string;
+  companyURL: string;
   info: string;
   responsibilities: string[];
   stack: string[];
   design: string[];
 }
 
-const { title, duration, location, company, info, responsibilities, stack, design } = Astro.props;
+const { title, begin, end, location, company, companyURL, info, responsibilities, stack, design } = Astro.props;
+
+const beginDate = new Date(begin);
+const endDate = new Date(end);
+
+const beginMonth = `${beginDate.toLocaleString('en-US', { month: 'short' })}`;
+const beginYear = `${beginDate.getFullYear()}`;
+const endMonth = `${endDate.toLocaleString('en-US', { month: 'short' })}`;
+const endYear = `${endDate.getFullYear()}`;
+
+const diffYear = endDate.getFullYear() - beginDate.getFullYear();
+const diffMonth = endDate.getMonth() - beginDate.getMonth();
+
+let totalYears = diffYear;
+let totalMonths = diffMonth;
+
+if (diffMonth < 0) {
+  totalYears--;
+  totalMonths = diffMonth + 12;
+}
+
+const duration = totalYears === 0 ? `${totalMonths}M` : `${totalYears}Y ${totalMonths}M`;
 ---
 <section class="role-item">
   <div class="heading">
     <h4>{title}</h4>
-    <b>{duration}</b>
+    <b>
+      <span class="month">{beginMonth}</span> {beginYear}<span class={beginYear === endYear ? 'hiddenyear' : ''}> - <span class="month">{endMonth} </span>{endYear}</span> ({duration})
+    </b>
   </div>
   <div class="subheading">
-    <p>{location} @ <b>{company}</b></p>
+    <p>{location} @ <b><a href={companyURL}>{company}</a></b></p>
     <b>{info}</b>
   </div>
   {responsibilities?.length > 0 &&
@@ -28,6 +53,8 @@ const { title, duration, location, company, info, responsibilities, stack, desig
       ))}
     </ul>
   }
+
+  <slot />
   <section class="role-stacks">
     {stack?.length > 0 &&
       <div class="stack">
@@ -65,23 +92,32 @@ const { title, duration, location, company, info, responsibilities, stack, desig
     b {
       font-size: var(--font-size-0);
       color: var(--gray-6);
+
+      .month {
+        display: inline-flex;
+        height: 0;
+        width: 0;
+        opacity: 0.01;
+      }
+
+      .hiddenyear {
+        display: inline-flex;
+        height: 0;
+        width: 0;
+        opacity: 0.01;
+      }
     }
   }
 
   .subheading {
     display: flex;
+    justify-content: space-between;
     line-height: var(--font-lineheight-4);
 
     :is(p,b,a) {
       font-size: 10px;
       font-weight: var(--font-weight-4);
       text-transform: uppercase;
-    }
-
-    > b::before {
-      content: '·';
-      margin-inline: var(--size-2);
-      font-weight: var(--font-weight-7);
     }
   }
 

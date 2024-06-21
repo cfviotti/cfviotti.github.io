@@ -8,6 +8,16 @@ import { Content as EducationSection } from '../content/summary-sections/educati
 
 const roles = await getCollection('roles');
 const skillsSection = await getEntry('summary-sections', 'skills');
+const renderedRoles = await Promise.all(roles.map(async role => {
+  const { Content } = await role.render();
+  return { ...role, Content };
+}));
+
+renderedRoles.sort((a, b) => {
+  const aBegin = new Date(a.data.begin).getTime();
+  const bBegin = new Date(b.data.begin).getTime();
+  return bBegin - aBegin;
+});
 ---
 
 <Layout title="Caio Viotti's CV - IT'S CVCV">
@@ -57,8 +67,10 @@ const skillsSection = await getEntry('summary-sections', 'skills');
     <main class="work-history">
       <h3>Work history</h3>
       <div class="roles">
-        { roles.map(({ data }) => (
-          <Role {...data} />
+        {renderedRoles.map(({ data, Content }) => (
+          <Role {...data}>
+            <Content />
+          </Role>
         ))}
       </div>
     </main>
@@ -75,6 +87,20 @@ const skillsSection = await getEntry('summary-sections', 'skills');
     margin: var(--size-8) auto;
     outline: 2px solid var(--gray-0);
     outline-offset: var(--size-3);
+
+    a {
+      text-decoration: underline;
+      position: relative;
+      padding-right: 0.85em;
+      color: inherit;
+
+      &::after {
+        content: '↗';
+        position: absolute;
+        margin-left: 0.2em;
+        font-weight: var(--font-weight-5);
+      }
+    }
 
     h1 {
       font-size: 35.6px;

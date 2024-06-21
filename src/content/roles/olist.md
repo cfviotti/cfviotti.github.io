@@ -1,10 +1,11 @@
+---
 title: "Front-End Developer"
-duration: "2020 (3m)"
+begin: 2019-12-01
+end: 2020-03-01
 location: "Remote"
 company: "Olist"
+companyURL: "https://www.crunchbase.com/organization/olist"
 info: "Backed by SoftBank"
-responsibilities:
-  - "Refactored multiple legacy client-side features into a React-based Design System"
 stack:
   - "React"
   - "Styled Components"
@@ -14,3 +15,6 @@ stack:
   - "jQuery"
   - "SASS"
   - "Django"
+---
+
+- **Refactored multiple legacy client-side features into a React-based Design System**
