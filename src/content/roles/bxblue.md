@@ -5,16 +5,17 @@ end: 2021-01-01
 location: "Remote"
 company: "BxBlue"
 companyURL: "https://www.crunchbase.com/organization/bxblue"
-info: "Backed by Y Combinator"
+info: "Backed by Y Combinator (S17)"
 stack:
   - "React"
   - "Styled Components"
   - "Jest"
   - "Enzyme"
-  - "SASS"
+  - "SCSS"
   - "Rails"
 design:
   - "Figma"
 ---
 
-- **Led the design and implemented the user experience** of a WebRTC video-contract feature for the bxblue payday loan platform, cutting e-signature costs by letting users record themselves speaking key contract terms out loud that are dynamically shown onscreen.
+- **Led the design and implemented the UX** for a WebRTC video-contract feature, lowering e-signature costs by allowing users to verbally articulate contract terms displayed on-screen
+

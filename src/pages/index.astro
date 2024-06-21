@@ -80,7 +80,7 @@ renderedRoles.sort((a, b) => {
 <style lang="scss" is:global>
   .cv-page {
     display: grid;
-    grid-template-columns: 252px 1fr;
+    grid-template-columns: 242px 1fr;
     grid-template-rows: repeat(auto-fit, minmax(0px, 1fr));
     width: 210mm;
     height: 297mm;
@@ -110,8 +110,8 @@ renderedRoles.sort((a, b) => {
       font-size: var(--font-size-1);
       font-weight: var(--font-weight-4);
       text-transform: uppercase;
-      letter-spacing: 8.8px;
-      margin-right: -8.8px;
+      letter-spacing: 9.5px;
+      margin-right: -9.5px;
     }
 
     h3 {
@@ -132,7 +132,7 @@ renderedRoles.sort((a, b) => {
     flex-direction: column;
     align-items: flex-end;
     justify-content: space-between;
-    padding: var(--size-5);
+    padding: var(--size-4);
     background-color: black;
 
     .me {
@@ -199,8 +199,10 @@ renderedRoles.sort((a, b) => {
   }
 
   .work-history {
+    display: flex;
+    flex-direction: column;
     background-color: white;
-    padding: var(--size-5);
+    padding: var(--size-4);
     color: var(--gray-9);
 
     h3 {
@@ -208,9 +210,11 @@ renderedRoles.sort((a, b) => {
     }
 
     .roles {
+      flex: 1;
       display: flex;
+      justify-content: space-between;
       flex-direction: column;
-      gap: var(--size-3);
+      gap: 12px;
     }
   }
 

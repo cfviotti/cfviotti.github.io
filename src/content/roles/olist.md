@@ -13,8 +13,8 @@ stack:
   - "REBASS"
   - "DOCZ"
   - "jQuery"
-  - "SASS"
+  - "SCSS"
   - "Django"
 ---
 
-- **Refactored multiple legacy client-side features into a React-based Design System**
+- **Refactored multiple legacy client-side features** into a new React-based Design System

@@ -7,17 +7,16 @@ company: "LABHacker"
 companyURL: "https://sites.google.com/view/labhackercd/home"
 info: "In Brazilian House of Representatives"
 stack:
-  - "ES6+"
-  - "jQuery with Pub/Sub Pattern"
-  - "SASS"
+  - "ES5+"
+  - "jQuery"
+  - "SCSS"
   - "RSCSS"
-  - "ABCSS"
+  - "BEM"
   - "Django"
-  - "ES5"
 design:
   - "Figma"
   - "Miro"
 ---
 
-- **Led the product discovery, the Design Sprint facilitation, and implemented the user experience** for the reboot of Wikilegis, innovating how Brazilian law drafts can receive citizen opinions, have them judged in a Tinder-like fashion, while also empowering law-makers through a custom legislative text editor and consensus analysis of each opinion that has been judged by citizens.
-- **Designed and implemented the user experience** for Audiencias Interativas, which enabled citizens to remotely have their questions crowd-ranked and answered in public hearings from the House of Representatives. Committees adopted the tool so much, that now around 55% of all hearings are available on it.
+- **Implemented the UX** for a pilot public hearings tool enabling remote crowd-ranking of citizen questions at the House of Representatives. **55%** adoption within **1 year**, institutionalized by 2024
+- **Led product discovery, Design Sprint, and UX implementation** of experimental tool that allowed citizen input on law drafts, with consensus analysis and legislative text editor for lawmakers
