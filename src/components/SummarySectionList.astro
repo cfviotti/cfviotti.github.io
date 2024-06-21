@@ -7,11 +7,58 @@ interface Props {
 const { title, items } = Astro.props as Props;
 ---
 
-<section>
-  <h4>{title}</h4>
-  <ul>
+<section class="summary-section-list">
+  <h4 class="title">{title}</h4>
+  <ul class="list">
     {items.map(item => (
-      <li set:html={item}></li>
+      <li set:html={`&nbsp${item}`}></li>
     ))}
   </ul>
 </section>
+
+<style lang="scss" is:global>
+
+  .summary-section-list {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    overflow: hidden;
+    position: relative;
+    .list {
+      list-style: none;
+      padding: 0;
+      text-align: end;
+      font-size: var(--font-size-0);
+      font-weight: var(--font-weight-5);
+      letter-spacing: var(--font-letterspacing-2);
+      text-transform: uppercase;
+      color: var(--gray-6);
+
+      li {
+        min-width: min-content;
+        width: min-content;
+        display: inline;
+        padding: 0;
+        font-size: 10px;
+
+        &:not(:first-of-type) {
+          padding-left: 10px;
+        }
+
+        &::after {
+          content: ' ';
+          translate: 2px;
+          margin-right: -5px;
+          margin-left: 3px;
+          font-weight: var(--font-weight-8);
+          width: 2px;
+          height: 2px;
+          display: inline-block;
+          background: white;
+          border-radius: 100vmax;
+          margin-bottom: 2px;
+        }
+      }
+    }
+  }
+</style>
