@@ -134,6 +134,7 @@ renderedRoles.sort((a, b) => {
   }
 
   .summary-bar {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -142,18 +143,16 @@ renderedRoles.sort((a, b) => {
     background-color: black;
 
     .me {
-      opacity: 0.01;
       font-size: var(--font-size-00);
       text-wrap: nowrap;
       margin-top: -20px;
-      color: black;
+      color: hsl(0deg 0% 0% / 1%);
     }
 
     .mytitle {
-      opacity: 0.01;
       font-size: var(--font-size-00);
       text-wrap: nowrap;
-      color: black;
+      color: hsl(0deg 0% 0% / 1%);
     }
 
     .logo {
