@@ -21,9 +21,9 @@ design:
   - "Whimsical"
 ---
 
-- **Managed the company’s Design System development from scratch**, with dozens of Vue + StoryBook components with enhanced UX and DevX tailored to product demands
+- **Managed the company’s Design System development from scratch**, coding dozens of Vue + StoryBook components with enhanced UX and DevX tailored to product demands
 - **Led the platform-wide UI revamp**, enhancing user-facing screens, backoffice interfaces, and ensuring consistency and comprehension improvements in copy
 - **Led the UI/UX refactor for the Low-code Workflow Automation** segment in the backoffice, utilizing a linear node-based UI pattern
-- **Led the development of a pseudo-viewport component** for rendering various layout views on our platform, ensuring consistency during navigation across complex view UI patterns
-- **Led the design and refactoring for page component configuration** in the Low-code segment, with full settings sidebar for improved user interaction
+- **Led the development of a pseudo-viewport component** for rendering various layout views on our platform, ensuring consistency during navigation across complex view UIs
+- **Led the design and refactoring for inner view components configuration** in the Low-code segment, with a full settings sidebar for improved user interaction
 - **Led the refactor of a user-friendly JSON Editor** for API integration within Workflow Automations
