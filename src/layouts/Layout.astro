@@ -1,6 +1,6 @@
 ---
 interface Props {
-	title: string;
+	title?: string;
 }
 
 import '@fontsource/inter/100.css';
@@ -14,16 +14,16 @@ import '@fontsource/inter/800.css';
 import '@fontsource/inter/900.css';
 const { title } = Astro.props;
 ---
-
 <!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
+		<meta name="description" content="👋 I'm a product-driven UX Engineer who loves solving any business problem. Welcome to my link hub!" />
 		<meta name="viewport" content="width=device-width" />
+		<meta name="author" content="Caio Viotti">
+		<meta name="keywords" content="UX Engineering,Front-end,Design,Software,UI,UX,Professional,Brasilia,Brazil,">
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
+		<title>Caio Viotti 🧑‍💻🎨 UX Engineer{title && ` | ${title}`}</title>
 	</head>
 	<body>
 		<slot />
@@ -32,7 +32,6 @@ const { title } = Astro.props;
 <style is:global>
 	@import "open-props/style";
 	@import "open-props/normalize";
-	@import "open-props/buttons";
 	:root {
 		--accent: 136, 58, 234;
 		--accent-light: 224, 204, 250;
@@ -46,14 +45,12 @@ const { title } = Astro.props;
 	}
 	html {
 		font-family: 'Inter', system-ui, sans-serif;
+		font-display: swap;
 		background: #13151a;
 		background-size: 224px;
 		color: gainsboro;
 	}
 
-	body {
-		padding-block: var(--size-8);
-	}
 	code {
 		font-family:
 			Menlo,
