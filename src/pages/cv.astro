@@ -65,10 +65,13 @@ renderedRoles.sort((a, b) => {
       <main class="work-history">
         <h3>Experience</h3>
         <div class="roles">
-          {renderedRoles.map(({ data, Content }) => (
-            <Role {...data}>
-              <Content />
-            </Role>
+          {renderedRoles.map(({ data, Content }, index) => (
+            <>
+              <Role {...data}>
+                <Content />
+              </Role>
+              {index < renderedRoles.length - 1 && <hr />}
+            </>
           ))}
         </div>
       </main>
@@ -101,6 +104,12 @@ renderedRoles.sort((a, b) => {
       width: 210mm;
       height: 297mm;
       box-shadow: 0 0 200px 0px hsla(0, 0%, 100%, 0.3);
+
+      hr {
+        height: 1px;
+        background-color: var(--gray-4);
+        margin: 0;
+      }
 
       :where(a) {
         text-decoration: underline;
@@ -139,7 +148,7 @@ renderedRoles.sort((a, b) => {
     flex-direction: column;
     align-items: flex-end;
     justify-content: space-between;
-    padding: var(--size-4);
+    padding: var(--size-5);
     background-color: black;
 
     .me {
@@ -216,11 +225,11 @@ renderedRoles.sort((a, b) => {
     display: flex;
     flex-direction: column;
     background-color: white;
-    padding: var(--size-4);
+    padding: var(--size-5);
     color: var(--gray-9);
 
     h3 {
-      margin-bottom: var(--size-3);
+      margin-bottom: 12px;
     }
 
     .roles {
@@ -228,7 +237,7 @@ renderedRoles.sort((a, b) => {
       display: flex;
       justify-content: space-between;
       flex-direction: column;
-      gap: 12px;
+      gap: var(--size-1);
     }
   }
 
