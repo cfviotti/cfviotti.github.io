@@ -9,10 +9,10 @@ companyURL: "https://www.crunchbase.com/organization/buser"
 info: "Backed by Softbank"
 stack:
   - "Vue"
+  - "Nuxt"
   - "Vuex"
   - "VuePress"
   - "Jest"
-  - "Testing-library"
   - "SCSS"
   - "django"
 design:
