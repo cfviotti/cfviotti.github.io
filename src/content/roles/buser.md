@@ -20,7 +20,7 @@ design:
   - "Miro"
 ---
 
-- **Led the Product Discovery and UX implementation** for a dymanic blog feature, generating **60k** SEO-optimized pages that elevated organic traffic from **500k to 2.5M** in less than **1 year**
+- **Led the Product Discovery and UX implementation** for a dynamic blog-like feature, generating **60k** SEO-optimized pages that elevated organic traffic from **500k to 2.5M** in less than **1 year**
 - **Implemented a sign-up-free single-page checkout**, boosting conversion rate by **16%**
 - **Optimized dozens of Design System components** with in-depth documentation, accessibility-based unit testing, and **shrank build size by 30%** by reducing JS dependency
 - **Promoted best practices for scalable CSS** across the organization, offering guidance and mentoring for all things related to styling

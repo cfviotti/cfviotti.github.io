@@ -17,5 +17,5 @@ design:
   - "Figma"
 ---
 
-- **Led the design and implemented the UX** for a WebRTC video-contract feature, lowering e-signature costs by allowing users to verbally articulate contract terms displayed on-screen
+- **Led the design and implemented the UX** for a WebRTC video-contract feature, lowering e-signature costs by allowing users to articulate contract terms displayed on-screen verbally
 
