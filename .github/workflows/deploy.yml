@@ -50,4 +50,4 @@ jobs:
           git config --local user.name "GitHub Action"
           git add "./public/Caio Viotti Resume 2024.pdf"
           git commit -m "Update CV PDF [skip ci]"
-          git push https://${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/cfviotti/cfviotti.github.io.git HEAD:main
+          git push https://${{ secrets.GITHUB_TOKEN }}@github.com/cfviotti/cfviotti.github.io.git HEAD:main
