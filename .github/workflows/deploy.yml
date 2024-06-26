@@ -1,9 +1,8 @@
-name: Deploy to GitHub Pages
+name: Deploy to Github Pages
 
 on:
   push:
-    branches: [ main ]
-  workflow_dispatch:
+    branches: [main]
 
 permissions:
   contents: read
@@ -11,45 +10,25 @@ permissions:
   id-token: write
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v4
       - name: Install, build, and upload your site
         uses: withastro/action@v2
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
       - name: Deploy to GitHub Pages
-        id: deployment
         uses: actions/deploy-pages@v4
 
-  generate-cv-pdf:
-    needs: deploy
+  conditional-pdf-generation:
+    if: github.actor != 'github-actions[bot]'
+    needs: build-and-deploy
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '20'
-      - name: Install dependencies
-        run: npm install
-      - name: Generate PDF from live site
-        run: node src/scripts/generate-cv-pdf.js https://caio.viotti.me/cv "./public/Caio Viotti Resume 2024.pdf"
-      - name: Commit PDF
+      - name: Trigger Generate PDF Workflow
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add "./public/Caio Viotti Resume 2024.pdf"
-          git commit -m "Update CV PDF [skip ci]"
-          git push https://${{ secrets.GITHUB_TOKEN }}@github.com/cfviotti/cfviotti.github.io.git HEAD:main
+          curl -X POST \
+            -H "Authorization: token ${{ secrets.PERSONAL_ACCESS_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            -d '{"event_type": "generate-pdf"}' \
+            https://api.github.com/repos/${{ github.repository }}/dispatches
