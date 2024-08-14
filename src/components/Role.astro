@@ -69,10 +69,8 @@ if (totalMonths > 0) {
 
         <span class:list={['text-gray-300', hiddenFromATS && '[filter:opacity(0.99)]']}>@</span>
 
-        <a href={companyURL}>
-          <span class:list={[hiddenFromATS && '[filter:opacity(0.99)]']}>{company}</span>
-        </a>
-        
+        <a href={companyURL}><span class:list={[hiddenFromATS && '[filter:opacity(0.99)]']}>{company}</span></a>
+
         {info && (
           infoURL ?
           <span class="font-normal text-[10px]">
