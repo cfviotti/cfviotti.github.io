@@ -1,26 +1,39 @@
 ---
 interface Props {
-  supressed: boolean;
   title: string;
   begin: string;
   end: string;
-  location: string;
   company: string;
   companyURL: string;
+  companyIcon: string;
+  hiddenFromATS: boolean;
   info: string;
-  responsibilities: string[];
+  infoURL: string;
   stack: string[];
   design: string[];
 }
 
-const { supressed, title, begin, end, location, company, companyURL, info, responsibilities, stack, design } = Astro.props;
+const {
+  title,
+  begin,
+  end,
+  company,
+  companyURL,
+  companyIcon,
+  hiddenFromATS,
+  info,
+  infoURL,
+  stack,
+  design
+} = Astro.props;
 
 const beginDate = new Date(begin);
 const endDate = new Date(end);
 
-const beginMonth = `${beginDate.toLocaleString('en-US', { month: 'short' })}`;
+const beginMonth = String(beginDate.getMonth() + 2).padStart(2, '0');
 const beginYear = `${beginDate.getFullYear()}`;
-const endMonth = `${endDate.toLocaleString('en-US', { month: 'short' })}`;
+
+const endMonth = String(endDate.getMonth() + 2).padStart(2, '0');
 const endYear = `${endDate.getFullYear()}`;
 
 const diffYear = endDate.getFullYear() - beginDate.getFullYear();
@@ -42,162 +55,65 @@ if (totalYears > 0) {
 
 if (totalMonths > 0) {
   if (duration) {
-    duration += ' ';
+    duration += '';
   }
   duration += `${totalMonths}M`;
 }
 ---
-<section class="role-item">
-    <div class=`heading ${supressed ? '-supressed' : ''}`>
-      <h4>{title}</h4>
-      {supressed &&
-      <span class="company-info">
-        <p>{location}@ <b><a href={companyURL}>{company}</a></b> · <b>{info}</b></p>
-      </span>
-      }
-      <b class="duration">
-        <span class="month">{beginMonth}</span> {beginYear}<span class={beginYear === endYear ? 'hiddenyear' : ''}> - <span class="month">{endMonth} </span>{endYear}</span> ({duration})
-      </b>
-    </div>
+<section class="flex flex-col gap-2">
+  <div class="flex justify-between items-center">
+    <span class="flex items-center gap-1.5 font-medium text-xs text-gray-400">
+      <span class="[&>svg]:inline leading-none" set:html={companyIcon}/>
+      <h4 class="inline flex-initial max-w-none">
+        <span class:list={[hiddenFromATS && '[filter:opacity(0.99)]']}>{title}</span>
 
-  {!supressed &&
-    <div class="subheading">
-      <span class="company-info">
-        <p>{location} @ <b><a href={companyURL}>{company}</a></b></p>
-        <b>{info}</b>
-      </span>
-    </div>
-  }
+        <span class:list={['text-gray-300', hiddenFromATS && '[filter:opacity(0.99)]']}>@</span>
 
-  <slot />
+        <a href={companyURL}>
+          <span class:list={[hiddenFromATS && '[filter:opacity(0.99)]']}>{company}</span>
+        </a>
+        
+        {info && (
+          infoURL ?
+          <span class="font-normal text-[10px]">
+            (<a href={infoURL}><span class="[filter:opacity(0.99)]">{info}</span></a>)
+          </span>
+          :
+          <span class="font-normal text-[10px] [filter:opacity(0.99)]">
+            ({info})
+          </span>
+        )
+        }
+      </h4>
+    </span>
+    <span class="text-gray-400 text-[10px]"><b class="[filter:opacity(0.99)] font-medium">{duration}</b> | {beginMonth}/{beginYear} - {endMonth}/{endYear}</span>
+  </div>
+
+  {!Astro.slots.default ? null : (
+    <div class="contents [&_strong]:font-semibold [&_*]:text-[11px] [&_*]:max-w-none [&_li]:p-0 [&_ul]:flex [&_ul]:flex-col [&_ul]:gap-2 [&_li] tracking-tight [&_li]:before:content-['•'] [&_li]:before:mr-0.5 leading-snug">
+      <slot />
+    </div>
+  )}
+
   {(stack?.length > 0 || design?.length > 0) &&
-    <section class="role-stacks">
-      {stack?.length > 0 &&
-        <div class="stack -tech">
-          <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 15 15"><path stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.414" d="M3.889 4.75 1 7.5l2.889 2.75m7.222-5.5L14 7.5l-2.889 2.75M8.944 2 6.056 13"/></svg>
-          <p class="list">
-            {stack.join(', ')}
-          </p>
-        </div>
-      }
-
-      {design?.length > 0 &&
-        <div class="stack -design">
-          <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 15 15"><path fill="#000" d="M14 5.751a1.063 1.063 0 0 0-.314-.757l-3.68-3.68a1.07 1.07 0 0 0-1.515 0l-1.49 1.49-3.066 1.15a1.071 1.071 0 0 0-.681.827L2.009 12.25a.643.643 0 0 0 .741.741l7.47-1.245a1.075 1.075 0 0 0 .828-.68l1.15-3.067 1.49-1.49A1.064 1.064 0 0 0 14 5.75Zm-4.114 4.747-5.368.895 1.768-1.768a1.821 1.821 0 1 0-.91-.91l-1.768 1.767.894-5.367 2.695-1.01 3.699 3.699-1.01 2.694ZM6.5 7.965a.536.536 0 1 1 1.072 0 .536.536 0 0 1-1.072 0Zm5.143-1.233L8.268 3.358l.983-.983 3.374 3.375-.982.982Z"/></svg>
-            <p class="list">
-              {design.join(', ')}
-            </p>
-        </div>
-      }
+    <section class="flex items-center gap-1.5">
+      <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="12" height="13" fill="none" viewBox="0 0 12 13">
+        <path stroke="#8F8F91" stroke-linecap="round" stroke-linejoin="round" d="m0 6.5 5.333 2.666 5.334-2.667M0 9.166l5.333 2.667 5.334-2.667m-5.334-8L0 3.833l5.333 2.666 5.334-2.666-5.334-2.667Z"/>
+      </svg>
+      <p class="text-gray-900 text-[10px] max-w-none">
+        {stack.length > 0 && (
+          <>
+            <strong>{stack[0]}</strong>{stack.slice(1).length > 0 && `, ${stack.slice(1).join(', ')}`}
+          </>
+        )}
+        {design?.length > 0 && ` / ${design.join(', ')}`}
+      </p>
     </section>
   }
 </section>
 
-<style lang="scss" is:global>
-.role-item {
-  letter-spacing: -0.0175em;
-  .heading {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+<script>
 
-    .duration {
-      font-size: var(--font-size-0);
-      color: var(--gray-6);
+console.log(Astro.slots.default);
 
-      .month {
-        display: none;
-        // display: inline-flex;
-        // height: 0;
-        // width: 0;
-        // opacity: 0.01;
-      }
-
-      .hiddenyear {
-        display: none;
-        // display: inline-flex;
-        // height: 0;
-        // width: 0;
-        // opacity: 0.01;
-
-        .month {
-          opacity: 1 ;
-        }
-      }
-    }
-
-    &.-supressed {
-      gap: var(--size-1);
-      h4 {
-        font-size: var(--font-size-0);
-      }
-    }
-  }
-
-  .subheading {
-    display: flex;
-    justify-content: space-between;
-    line-height: var(--font-lineheight-4);
-  }
-
-  .company-info {
-    flex: 1;
-    display: flex;
-    justify-content: space-between;
-
-    :is(p,b,a) {
-      font-size: 10px;
-      font-weight: var(--font-weight-4);
-      text-transform: uppercase;
-    }
-  }
-
-  ul {
-    margin-block: 10px;
-    list-style-position: inside;
-    padding: 0;
-
-    li {
-      padding: 0;
-      font-size: 11px;
-      max-width: unset;
-      margin-top: 6px;
-
-      &::marker {
-        content: '• ';
-        font-weight: var(--font-weight-8);
-        padding-right: 10px;
-      }
-    }
-  }
-}
-
-.role-stacks {
-  display: grid;
-  gap: 0;
-  grid-auto-columns: max-content;
-  gap: var(--size-2);
-
-  .stack {
-    display: flex;
-
-    &.-tech {
-      grid-area: 1 / 1;
-    }
-    &.-design {
-      grid-area: 1 / 2;
-    }
-  }
-  .icon {
-    width: 14px;
-    margin-right: var(--size-1);
-  }
-
-  .list {
-    text-transform: uppercase;
-    color: var(--gray-7);
-    font-size: 10px;
-    text-wrap: nowrap;
-  }
-}
-</style>
+</script>
