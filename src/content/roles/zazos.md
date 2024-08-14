@@ -27,8 +27,8 @@ design:
 ---
 
 - **⁠Managed and developed the company’s Design System from scratch**, creating **20** tailored components for optimal DX/UX with Vue + StoryBook, cutting **70%** of unstructured UI lib code
-- **⁠Led the platform-wide UI redesign and its Front-End refactoring**, enhancing user-facing and back-office screens with consistency in UI and copy, with **90%** client satisfaction (and awe)
+- **⁠Led the platform-wide UI redesign and its Front-End refactoring**, enhancing user-facing and back-office screens with consistency in UI and copy, with overwhelming client satisfaction
 - **⁠Led the Front-End refactoring and UX overhaul for the Workflow Automations** of the platform's Low-Code segment, utilizing a new node-based UI pattern, resulting in **53%** increased usage
 - ⁠**Led the implementation of a pseudo-viewport component** for rendering **9** possible layout views of our platform while ensuring full consistency in navigation between pages using them
-- **⁠Led the UI/UX redesign and Front-End refactoring for the Low-code page components settings** by using a detailed sidebar for a consistent experience, reducing usage friction by **68%**
-- ⁠Led the refactoring of a visual JSON Editor for API integration within Workflow Automations
+- **⁠Led the UI/UX redesign and Front-End refactoring for the Low-code page components settings** by using a detailed sidebar for a consistent experience, reducing usage friction by **65%**
+- **⁠Led the refactoring of a visual JSON Editor** for API integration within Workflow Automations
