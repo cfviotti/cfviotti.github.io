@@ -1,64 +1,55 @@
 ---
-interface Props {
-  title: string;
-  items: string[];
+interface Skills {
+  [category: string]: {
+    [level: string]: string[];
+  } | string[];
 }
 
-const { title, items } = Astro.props as Props;
+interface Props {
+  skills: Skills;
+}
+
+const { skills } = Astro.props as Props;
+const levelIconMap = {
+  Proficient: `
+    <svg class="inline -mt-1" xmlns="http://www.w3.org/2000/svg" width="14" height="13" fill="none" viewBox="0 0 14 13">
+      <path stroke="#9CA3AF" stroke-linecap="round" stroke-linejoin="round" d="M4.333 12.333h5.334M7 9.667v2.666m0-2.666a3.333 3.333 0 0 0 3.333-3.334V1H3.667v5.333A3.333 3.333 0 0 0 7 9.667ZM1 4.333a1.333 1.333 0 1 0 2.667 0 1.333 1.333 0 0 0-2.667 0Zm9.333 0a1.333 1.333 0 1 0 2.667 0 1.333 1.333 0 0 0-2.667 0Z"/>
+    </svg>
+  `,
+  Intermediate: `
+    <svg class="inline -mt-1" xmlns="http://www.w3.org/2000/svg" width="13" height="14" fill="none" viewBox="0 0 13 14">
+      <path stroke="#9CA3AF" stroke-linecap="round" stroke-linejoin="round" d="M6.732 9a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm0 0 2.267 3.927 1.065-2.156 2.399.155L10.196 7m-6.93 0L1 10.927l2.399-.156 1.065 2.155L6.731 9"/>
+    </svg>
+  `,
+  Familiar: `
+    <svg class="inline -mt-1" xmlns="http://www.w3.org/2000/svg" width="14" height="11" fill="none" viewBox="0 0 14 11">
+      <path stroke="#9CA3AF" stroke-linecap="round" stroke-linejoin="round" d="M7 10.47a6 6 0 0 0-6 0V1.804a6 6 0 0 1 6 0m0 8.666a6 6 0 0 1 6 0V1.804a6 6 0 0 0-6 0m0 8.666V1.804"/>
+    </svg>
+  `,
+};
 ---
 
-<section class="summary-section-list">
-  <h4 class="title">{title}</h4>
-  <ul class="list">
-    {items.map(item => (
-      <li set:html={`&nbsp${item}`}></li>
-    ))}
-  </ul>
+<section class="flex flex-col gap-4">
+  {Object.entries(skills).map(([category, levels]) => (
+    <div class="flex flex-col gap-1.5">
+      <h5 class="text-[12px] font-medium text-gray-400">{category}</h5>
+      <div class="flex flex-col gap-2.5">
+        {Array.isArray(levels) ? (
+          <p class="text-[11px]">{levels.join(', ')}</p>
+        ) : (
+          Object.entries(levels).map(([level, skills]) => (
+            <div class="flex flex-col">
+              <strong class="text-[11px] text-gray-400 font-medium inline-flex items-center gap-1">
+                <Fragment set:html={levelIconMap[level]}></Fragment>
+                {level}
+              </strong>
+              <p class="text-[11px] inline leading-relaxed">
+                {skills.join(', ')}
+              </p>
+            </div>
+          ))
+        )}
+      </div>
+    </div>
+  ))}
 </section>
-
-<style lang="scss" is:global>
-
-  .summary-section-list {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    overflow: hidden;
-
-    .list {
-      list-style: none;
-      padding: 0;
-      text-align: end;
-      font-size: var(--font-size-0);
-      font-weight: var(--font-weight-5);
-      letter-spacing: var(--font-letterspacing-2);
-      text-transform: uppercase;
-      color: var(--gray-6);
-
-      li {
-        min-width: min-content;
-        width: min-content;
-        display: inline;
-        padding: 0;
-        font-size: 10px;
-
-        &:not(:first-of-type) {
-          padding-left: 10px;
-        }
-
-        &::after {
-          content: ' ';
-          translate: 2px;
-          margin-right: -5px;
-          margin-left: 3px;
-          font-weight: var(--font-weight-8);
-          width: 2px;
-          height: 2px;
-          display: inline-block;
-          background: white;
-          border-radius: 100vmax;
-          margin-bottom: 2px;
-        }
-      }
-    }
-  }
-</style>
