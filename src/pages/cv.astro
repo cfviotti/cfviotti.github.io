@@ -22,8 +22,8 @@ renderedRoles.sort((a, b) => {
 });
 ---
 <Layout title="CV's CV">
-  <div class="cv-page grid content-center justify-items-center gap-7 py-8 min-h-[100dvh]">
-    <div class="cv text-gray-900 grid grid-cols-[262px_1fr] grid-rows-[auto_minmax(0,1fr)] w-[210mm] min-h-[297mm] bg-white outline outline-black outline-2 -outline-offset-2 shadow-[0_0_100px_0_hsla(0,0%,100%,0.2)]">
+  <div class="cv-page grid content-center justify-items-center gap-7 py-20 min-h-[100dvh]">
+    <div class="cv relative rounded-2xl text-gray-900 grid grid-cols-[262px_1fr] grid-rows-[auto_minmax(0,1fr)] w-[210mm] min-h-[297mm] bg-white outline outline-black outline-2 -outline-offset-2 //shadow-[0_0_100px_0_hsla(0,0%,100%,0.2)] print:rounded-none before:absolute before:-inset-2 before:-z-10 before:rounded-3xl before:bg-zinc-400 after:absolute after:-inset-10 after:-z-10 after:rounded-3xl after:bg-[conic-gradient(from_var(--gradient-angle),hsl(0deg_0%_40%),hsl(0deg_0%_30%),hsl(0deg_0%_20%),hsl(0deg_0%_10%),hsl(0deg_0%_40%),hsl(0deg_0%_40%),hsl(0deg_0%_0%),hsl(0deg_0%_40%))] after:animate-[gradient-spin_20s_linear_infinite] after:blur-2xl">
 
       <header class="col-span-full">
         <div class="flex items-center justify-between col-span-full px-7 py-4">
@@ -97,6 +97,16 @@ renderedRoles.sort((a, b) => {
 </Layout>
 
 <style lang="scss" is:global>
+@property --gradient-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes gradient-spin {
+  from {--gradient-angle: 0deg;}
+  to {--gradient-angle: 360deg;}
+}
 
 @media print {
   @page {
