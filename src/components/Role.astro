@@ -1,29 +1,21 @@
 ---
-interface Props {
-  title: string;
-  begin: string;
-  end: string;
-  company: string;
-  companyURL: string;
-  companyIcon: string;
-  hiddenFromATS: boolean;
-  hidden: boolean;
-  info: string;
-  infoURL: string;
-  stack: string[];
-  design: string[];
+import type { RoleData } from '../content.config';
+
+interface Props extends RoleData {
+  hiddenFromATS?: boolean;
+  hidden?: boolean;
   suppressed?: boolean;
 }
 
 const {
-  title,
-  begin,
-  end,
-  company,
-  companyURL,
-  companyIcon,
-  hiddenFromATS,
-  hidden,
+  title = '',
+  begin = new Date(),
+  end = new Date(),
+  company = '',
+  companyURL = '',
+  companyIcon = '',
+  hiddenFromATS = false,
+  hidden = false,
   info,
   infoURL,
   stack,
@@ -31,8 +23,8 @@ const {
   suppressed = false,
 } = Astro.props;
 
-const beginDate = new Date(begin);
-const endDate = new Date(end);
+const beginDate = begin;
+const endDate = end;
 const now = new Date();
 
 // If end date is in the future, calculate duration until now instead of end date
@@ -75,7 +67,7 @@ const endYear = `${endDate.getFullYear()}`;
   <div class="flex justify-between items-center">
     <span class="flex items-center gap-1.5 font-medium text-xs text-gray-400">
       <span class="[&>svg]:inline leading-none" set:html={companyIcon} />
-      <h4 class="inline flex-initial max-w-none">
+      <h4 class="inline leading-tight flex-initial max-w-none">
         <span class:list={[hiddenFromATS && "[filter:opacity(0.99)]"]}
           >{title}</span
         >
@@ -130,7 +122,7 @@ const endYear = `${endDate.getFullYear()}`;
           <path stroke="#8F8F91" stroke-linecap="round" stroke-linejoin="round" d="m0 6.5 5.333 2.666 5.334-2.667M0 9.166l5.333 2.667 5.334-2.667m-5.334-8L0 3.833l5.333 2.666 5.334-2.666-5.334-2.667Z"/>
         </svg>
         <p class="text-gray-900 text-[10px] max-w-none">
-          {stack.length > 0 && (
+          {stack && stack.length > 0 && (
             <>
               <strong>{stack[0]}</strong>{stack.slice(1).length > 0 && `, ${stack.slice(1).join(", ")}`}
             </>

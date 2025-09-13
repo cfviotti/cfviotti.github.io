@@ -10,10 +10,12 @@ const skillsSection = await getEntry('summary-sections', 'skills');
 const aboutMeSection = await getEntry('summary-sections', 'about-me');
 const { Content: AboutMeContent } = await aboutMeSection.render();
 
-const renderedRoles = await Promise.all(roles.map(async role => {
-  const { Content } = await role.render();
-  return { ...role, Content };
-}));
+const renderedRoles = await Promise.all(
+  roles.map(async (role) => {
+    const { Content } = await role.render();
+    return { ...role, Content };
+  })
+);
 
 renderedRoles.sort((a, b) => {
   const aBegin = new Date(a.data.begin).getTime();
@@ -23,7 +25,7 @@ renderedRoles.sort((a, b) => {
 ---
 <Layout title="CV's CV">
   <div class="grid content-center justify-items-center gap-7 px-16 w-fit mx-auto min-h-[100dvh] print:p-0 print:m-0 print:min-h-[unset] print:[webkit-print-color-adjust:exact] print:[color-adjust:exact] print:[print-color-adjust:exact]">
-    <div class="relative gap-x-6 rounded-2xl text-gray-900 grid grid-cols-[249px_1fr] grid-rows-[auto_minmax(0,1fr)] w-[210mm] min-h-[297mm] bg-white outline outline-black outline-2 -outline-offset-2 print:outline-8 print:rounded-none before:absolute before:-inset-2 before:-z-10 before:rounded-3xl before:bg-zinc-400 after:absolute after:-inset-10 after:-z-10 after:rounded-3xl after:bg-[conic-gradient(from_var(--gradient-angle),hsl(0deg_0%_40%),hsl(0deg_0%_30%),hsl(0deg_0%_20%),hsl(0deg_0%_10%),hsl(0deg_0%_40%),hsl(0deg_0%_40%),hsl(0deg_0%_0%),hsl(0deg_0%_40%))] after:animate-[gradient-spin_20s_linear_infinite] after:blur-2xl print:after:hidden print:before:hidden">
+    <div class="relative gap-x-6 rounded-2xl text-gray-900 grid grid-cols-[249px_1fr] grid-rows-[auto_minmax(0,1fr)] w-[210mm] min-h-[297mm] bg-white outline-black outline-2 -outline-offset-2 print:outline-8 print:rounded-none before:absolute before:-inset-2 before:-z-10 before:rounded-3xl before:bg-zinc-400 after:absolute after:-inset-10 after:-z-10 after:rounded-3xl after:bg-[conic-gradient(from_var(--gradient-angle),hsl(0deg_0%_40%),hsl(0deg_0%_30%),hsl(0deg_0%_20%),hsl(0deg_0%_10%),hsl(0deg_0%_40%),hsl(0deg_0%_40%),hsl(0deg_0%_0%),hsl(0deg_0%_40%))] after:animate-[gradient-spin_20s_linear_infinite] after:blur-2xl print:after:hidden print:before:hidden">
 
       <header class="col-span-full">
         <div class="flex items-center justify-between col-span-full px-7 py-4">
@@ -55,7 +57,7 @@ renderedRoles.sort((a, b) => {
         </div>
         <div class="flex flex-col [&_p]:text-[11px] [&_p]:max-w-none px-7 py-4 bg-black text-gray-300">
           <h3 class="text-base font-medium text-black leading-none -mt-[1em]">About me</h3>
-          <AboutMeContent>
+          <AboutMeContent />
         </div>
       </header>
 
@@ -65,7 +67,7 @@ renderedRoles.sort((a, b) => {
         </SummarySection>
         <SummarySection title="Education">
           <div class="flex flex-col">
-            <h4 class="text-[12px] font-medium text-gray-400">B.Sc.(Ed) Computer Science</h4>
+            <h4 class="text-[12px] leading-tight font-medium text-gray-400">B.Sc.(Ed) Computer Science</h4>
             <a class="text-gray-900 text-[11px] w-fit" href="https://www.unb.br/"><span class="[filter:opacity(0.99)]">University of Brasilia</span></a>
             <a class="text-gray-900 text-[11px] w-fit" href="https://www.usnews.com/education/best-global-universities/universidade-de-brasilia-504217"><span class="[filter:opacity(0.99)]">Top 10 in Brazil</span></a>
             <p class="text-gray-900 text-[11px]">50% completed (not pursuing)</p>
@@ -76,8 +78,10 @@ renderedRoles.sort((a, b) => {
       <main class="p-7 pl-0 pt-5 flex flex-col gap-2">
         <h3 class="text-base font-medium text-gray-400">Experience</h3>
         <div class="flex flex-col justify-between flex-1">
-          {renderedRoles.map(({ data, Content }, index) => (
-            <Role {...data}>
+          {renderedRoles.map(({ data, Content }) => (
+            <Role
+              {...data}
+            >
               <Content />
             </Role>
           ))}
@@ -95,17 +99,6 @@ renderedRoles.sort((a, b) => {
 </Layout>
 
 <style lang="scss" is:global>
-@property --gradient-angle {
-  syntax: "<angle>";
-  initial-value: 0deg;
-  inherits: false;
-}
-
-@keyframes gradient-spin {
-  from {--gradient-angle: 0deg;}
-  to {--gradient-angle: 360deg;}
-}
-
 @media print {
   @page {
     size: a4;

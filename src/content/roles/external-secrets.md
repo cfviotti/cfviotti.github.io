@@ -26,5 +26,6 @@ design:
 ---
 
 - **Built and led the Front-End architecture from scratch**, with full tech stack autonomy, establishing optimal UX standards from day one and delivering an MVP for lead generation in **4 weeks**
-- **Designed and implemented an enterprise secrets management dashboard** with audit analytics, automated reporting, and secret lifecycle visualization across **4** major cloud provider integrations
-- **Enhanced DevX through robust patterns** including a Design System, in-house feature flag system, and mock API infrastructure that quickened prototyping and reduced PR review cycles
+- **Designed and implemented an enterprise secrets management dashboard** with audit analytics, automated reporting, and secret lifecycle visualization across **30+** key vault provider integrations
+<!-- - **Designed and Implemented a dynamic schema-based nested form system** to automatically render complex CRDs as forms that upon submitted, yields back valid YAML manifests for K8s resources -->
+- **Enhanced DevX** by including Storybook components documentation, in-house feature flag system, and mock API infrastructure that quickened prototyping and reduced PR review cycles

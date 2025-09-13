@@ -1,0 +1,67 @@
+---
+# Rule to prevent unnecessary build command execution
+description: Prohibits running build commands unless explicitly requested by the user.
+alwaysApply: true
+---
+
+<build_command_restrictions>
+
+  <interpretation_of_terms>
+    <term_definition_source>
+    Capitalized imperative keywords (MUST, SHOULD, etc.) used in this rule follow the definitions outlined in `.cursor/rules/writing-llm-rules.mdc`.
+    </term_definition_source>
+  </interpretation_of_terms>
+
+  <objective>
+  Prevent the AI from automatically running build commands (npm build, npx next build, npm run dev, etc.) without explicit user request. This rule MUST ensure build commands are only executed when the user specifically asks for them.
+  </objective>
+
+  <principle name="build_command_prohibition">
+    <summary>NEVER Run Build Commands Automatically</summary>
+    <details>
+    - The AI MUST NOT run any build commands (npm run build, npx next build, npm run dev, npm build, etc.) unless the user explicitly requests it.
+    - Build commands SHOULD NOT be used as a verification step for TypeScript fixes, code changes, or other modifications.
+    - The AI MUST NOT assume that running a build command is necessary to verify that changes work correctly.
+    - Type checking (npm run type-check, tsc --noEmit) and linting commands are acceptable for verification purposes.
+    </details>
+  </principle>
+
+  <principle name="explicit_user_request_required">
+    <summary>Build Commands Require Explicit User Request</summary>
+    <details>
+    - Build commands MAY only be executed when the user explicitly asks for them using phrases like:
+      - "run the build"
+      - "test the build"
+      - "verify with a build"
+      - "build the project"
+    - The AI MUST NOT infer that a build is needed from context or assume it's a good verification step.
+    - If the AI needs to verify changes work, it SHOULD use type checking or linting instead.
+    </details>
+  </principle>
+
+  <principle name="alternative_verification_methods">
+    <summary>Use Appropriate Verification Methods</summary>
+    <details>
+    - For TypeScript issues: Use `npm run type-check` or `npx tsc --noEmit`
+    - For linting issues: Use `npm run lint` or specific linter commands
+    - For code functionality: Focus on the specific issue being addressed
+    - Build commands are time-consuming and SHOULD NOT be used as a default verification step
+    </details>
+  </principle>
+
+  <good_example title="Acceptable verification approach">
+    User: "Fix these TypeScript errors"
+    AI: *fixes errors* then runs `npm run type-check` to verify the fixes
+  </good_example>
+
+  <bad_example title="Prohibited automatic build">
+    User: "Fix these TypeScript errors"
+    AI: *fixes errors* then runs `npx next build` or `npm run dev` to verify (WRONG - not requested)
+  </bad_example>
+
+  <good_example title="Explicit user request">
+    User: "Fix these TypeScript errors and then run a build to make sure everything works"
+    AI: *fixes errors* then runs `npx next build` (ACCEPTABLE - explicitly requested)
+  </good_example>
+
+</build_command_restrictions>

@@ -1,43 +1,323 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const roles = await getCollection('roles');
+const targetSlugs = ['labhacker', 'buser', 'zazos', 'cjr', 'interlegis', 'olist', 'bxblue', 'external-secrets'];
+const hoverRoles = roles
+  .map(r => {
+    const base = (r.id.split('/').pop() || r.id).replace(/\.md$/, '');
+    return { entry: r, slug: base };
+  })
+  .filter(({ slug }) => targetSlugs.includes(slug))
+  .map(({ entry, slug }) => ({
+    slug,
+    title: entry.data.title,
+    begin: entry.data.begin,
+    end: entry.data.end,
+    company: entry.data.company,
+    companyURL: entry.data.companyURL,
+    companyIcon: entry.data.companyIcon,
+    info: entry.data.info,
+    infoURL: entry.data.infoURL,
+    stack: entry.data.stack ?? [],
+    design: entry.data.design ?? [],
+  }))
+  .map(r => {
+    const beginDate = new Date(r.begin);
+    const endDateCandidate = new Date(r.end);
+    const now = new Date();
+    const isCurrent = endDateCandidate > now;
+    const endDate = isCurrent ? now : endDateCandidate;
+
+    let years = endDate.getFullYear() - beginDate.getFullYear();
+    let months = endDate.getMonth() - beginDate.getMonth();
+    if (months < 0) {
+      years -= 1;
+      months += 12;
+    }
+    let duration = '';
+    if (years > 0) duration += `${years}Y`;
+    if (months > 0) duration += `${duration ? ' ' : ''}${months}M`;
+    if (!duration) duration = '0M';
+
+    const beginMonth = String(beginDate.getMonth() + 1).padStart(2, '0');
+    const beginYear = `${beginDate.getFullYear()}`;
+    const endMonth = String(endDateCandidate.getMonth() + 1).padStart(2, '0');
+    const endYear = `${endDateCandidate.getFullYear()}`;
+
+    return {
+      ...r,
+      duration,
+      isCurrent,
+      beginMonth,
+      beginYear,
+      endMonth,
+      endYear,
+    };
+  });
+
+const bySlug = Object.fromEntries(hoverRoles.map(r => [r.slug, r]));
 ---
 
 <Layout>
   <main class=" flex-1 flex-col gap-14 flex items-center justify-center max-w-screen-lg mx-auto">
-    <p class="[&:has(span:hover)]:text-stone-300/30 [&:has(span:hover)_span:not(:hover)]:decoration-stone-300/30 text-3xl md:text-4xl md:leading-normal font-extralight text-stone-300">
-      Olá 👋 I’m Caio Viotti 🇧🇷 🇪🇺
+    <p class="[&:has(span:hover)]:text-stone-300/30 [&:has(span:hover)_span:not(:hover)]:decoration-stone-300/30 text-2xl md:text-3xl leading-normal font-extralight text-stone-300">
+      Olá 👋 I'm Caio Viotti 🇧🇷 🇪🇺
       I discover what you need 🔍
       draw pretty screens 🎨
       and push web pixels ⌨️
       Not always in that order 🤷‍♂️
       I
-      <span class="cursor-pointer py-1.5 hover:text-stone-300 [&:hover>span]:!decoration-red-500">
-        <span class="underline decoration-[3px] decoration-dotted [text-underline-position:from-font] decoration-stone-300">facilitated numerous experiments for the legislative government</span>
-        ⚖️
+      <span
+        class="underline decoration-[3px] decoration-dotted [text-underline-position:from-font] decoration-stone-300 anchor-name-[--labhacker] cursor-pointer py-1.5 hover:text-stone-300"
+        aria-describedby="tt-labhacker"
+      >
+        facilitated numerous experiments for the legislative government
       </span>
-      <span class="cursor-pointer py-1.5 hover:text-stone-300">
-        <span class="underline decoration-[3px] decoration-dotted [text-underline-position:from-font] decoration-[#F11075]">revved up conversion and organic traffic for bus travel democratization</span>
-        🚌
+      ⚖️
+      <span
+        id="tt-labhacker"
+        popover
+        class="absolute anchor-[--labhacker] anchor-area-[top_center] anchor-try-[bottom_center,top_start,top_end] anchor-visibility-[anchors-visible] mt-2 z-20 opacity-0 translate-y-1 scale-95 pointer-events-none transition-all duration-200 ease-out open:opacity-100 open:translate-y-0 open:scale-100 open:pointer-events-auto"
+        role="tooltip"
+      >
+        <span class="rounded-lg border border-stone-700/60 bg-stone-900/95 backdrop-blur px-3 py-2 shadow-xl text-stone-200 text-[11px] max-w-[70ch] block">
+          <span class="flex items-center gap-1.5 font-medium text-xs text-stone-300">
+            <span class="[&>svg]:inline leading-none" set:html={bySlug['labhacker'].companyIcon} />
+            <span>{bySlug['labhacker'].title}</span>
+            <span class="text-stone-400">@</span>
+            <a href={bySlug['labhacker'].companyURL}><span>{bySlug['labhacker'].company}</span></a>
+          </span>
+          <span class="text-stone-400 text-[10px] mt-0.5 block"><b class="font-medium">{bySlug['labhacker'].duration}</b> · {bySlug['labhacker'].beginMonth}/{bySlug['labhacker'].beginYear} - {bySlug['labhacker'].isCurrent ? 'Present' : `${bySlug['labhacker'].endMonth}/${bySlug['labhacker'].endYear}`}</span>
+          {(bySlug['labhacker'].stack?.length > 0 || bySlug['labhacker'].design?.length > 0) && (
+            <span class="mt-1 text-[11px] text-stone-300 block">
+              {bySlug['labhacker'].stack?.length > 0 && (
+                <>
+                  <strong>{bySlug['labhacker'].stack[0]}</strong>{bySlug['labhacker'].stack.slice(1).length > 0 && `, ${bySlug['labhacker'].stack.slice(1).join(', ')}`}
+                </>
+              )}
+              {bySlug['labhacker'].design?.length > 0 && ` — ${bySlug['labhacker'].design.join(', ')}`}
+            </span>
+          )}
+        </span>
       </span>
-      <span class="cursor-pointer py-1.5 hover:text-stone-300">
-        <span class="underline decoration-[3px] decoration-dotted [text-underline-position:from-font] decoration-[#FD8C41]">polished and enhanced how HR teams (low) code their needs</span>
-        ⚡
+      <span
+        class="underline decoration-[3px] decoration-dotted [text-underline-position:from-font] decoration-[#F11075] anchor-name-[--buser] cursor-pointer py-1.5 hover:text-stone-300"
+        aria-describedby="tt-buser"
+      >
+        revved up conversion and organic traffic for bus travel democratization
+      </span>
+      🚌
+      <span
+        id="tt-buser"
+        popover
+        class="absolute anchor-[--buser] anchor-area-[top_center] anchor-try-[bottom_center,top_start,top_end] anchor-visibility-[anchors-visible] mt-2 z-20 opacity-0 translate-y-1 scale-95 pointer-events-none transition-all duration-200 ease-out open:opacity-100 open:translate-y-0 open:scale-100 open:pointer-events-auto"
+        role="tooltip"
+      >
+        <span class="rounded-lg border border-stone-700/60 bg-stone-900/95 backdrop-blur px-3 py-2 shadow-xl text-stone-200 text-[11px] max-w-[70ch] block">
+          <span class="flex items-center gap-1.5 font-medium text-xs text-stone-300">
+            <span class="[&>svg]:inline leading-none" set:html={bySlug['buser'].companyIcon} />
+            <span>{bySlug['buser'].title}</span>
+            <span class="text-stone-400">@</span>
+            <a href={bySlug['buser'].companyURL}><span>{bySlug['buser'].company}</span></a>
+          </span>
+          <span class="text-stone-400 text-[10px] mt-0.5 block"><b class="font-medium">{bySlug['buser'].duration}</b> · {bySlug['buser'].beginMonth}/{bySlug['buser'].beginYear} - {bySlug['buser'].isCurrent ? 'Present' : `${bySlug['buser'].endMonth}/${bySlug['buser'].endYear}`}</span>
+          {(bySlug['buser'].stack?.length > 0 || bySlug['buser'].design?.length > 0) && (
+            <span class="mt-1 text-[11px] text-stone-300 block">
+              {bySlug['buser'].stack?.length > 0 && (
+                <>
+                  <strong>{bySlug['buser'].stack[0]}</strong>{bySlug['buser'].stack.slice(1).length > 0 && `, ${bySlug['buser'].stack.slice(1).join(', ')}`}
+                </>
+              )}
+              {bySlug['buser'].design?.length > 0 && ` — ${bySlug['buser'].design.join(', ')}`}
+            </span>
+          )}
+        </span>
+      </span>
+      <span
+        class="underline decoration-[3px] decoration-dotted [text-underline-position:from-font] decoration-[#FD8C41] anchor-name-[--zazos] cursor-pointer py-1.5 hover:text-stone-300"
+        aria-describedby="tt-zazos"
+      >
+        polished and enhanced how HR teams (low) code their needs
+      </span>
+      ⚡
+      <span
+        id="tt-zazos"
+        popover
+        class="absolute anchor-[--zazos] anchor-area-[top_center] anchor-try-[bottom_center,top_start,top_end] anchor-visibility-[anchors-visible] mt-2 z-20 opacity-0 translate-y-1 scale-95 pointer-events-none transition-all duration-200 ease-out open:opacity-100 open:translate-y-0 open:scale-100 open:pointer-events-auto"
+        role="tooltip"
+      >
+        <span class="rounded-lg border border-stone-700/60 bg-stone-900/95 backdrop-blur px-3 py-2 shadow-xl text-stone-200 text-[11px] max-w-[70ch] block">
+          <span class="flex items-center gap-1.5 font-medium text-xs text-stone-300">
+            <span class="[&>svg]:inline leading-none" set:html={bySlug['zazos'].companyIcon} />
+            <span>{bySlug['zazos'].title}</span>
+            <span class="text-stone-400">@</span>
+            <a href={bySlug['zazos'].companyURL}><span>{bySlug['zazos'].company}</span></a>
+          </span>
+          <span class="text-stone-400 text-[10px] mt-0.5 block"><b class="font-medium">{bySlug['zazos'].duration}</b> · {bySlug['zazos'].beginMonth}/{bySlug['zazos'].beginYear} - {bySlug['zazos'].isCurrent ? 'Present' : `${bySlug['zazos'].endMonth}/${bySlug['zazos'].endYear}`}</span>
+          {(bySlug['zazos'].stack?.length > 0 || bySlug['zazos'].design?.length > 0) && (
+            <span class="mt-1 text-[11px] text-stone-300 block">
+              {bySlug['zazos'].stack?.length > 0 && (
+                <>
+                  <strong>{bySlug['zazos'].stack[0]}</strong>{bySlug['zazos'].stack.slice(1).length > 0 && `, ${bySlug['zazos'].stack.slice(1).join(', ')}`}
+                </>
+              )}
+              {bySlug['zazos'].design?.length > 0 && ` — ${bySlug['zazos'].design.join(', ')}`}
+            </span>
+          )}
+        </span>
       </span>
       among other awesome endeavors
       <span class="whitespace-nowrap">
-        <span class="cursor-pointer py-1.5 hover:text-stone-300 underline decoration-[3px] decoration-dotted [text-underline-position:under] decoration-[#013366]">💻</span>
-        <span class="cursor-pointer py-1.5 hover:text-stone-300 underline decoration-[3px] decoration-dotted [text-underline-position:under] decoration-[#01A255]">🏛️</span>
-        <span class="cursor-pointer py-1.5 hover:text-stone-300 underline decoration-[3px] decoration-dotted [text-underline-position:under] decoration-[#0D2AD0]">🛍️</span>
-        <span class="cursor-pointer py-1.5 hover:text-stone-300 underline decoration-[3px] decoration-dotted [text-underline-position:under] decoration-[#79F]">💰</span>
+        <span
+          class="underline decoration-[3px] decoration-dotted [text-underline-position:under] decoration-[#013366] anchor-name-[--cjr] cursor-pointer py-1.5 hover:text-stone-300"
+          aria-describedby="tt-cjr"
+        >
+          💻
+        </span>
+        <span
+          id="tt-cjr"
+          popover
+          class="absolute anchor-[--cjr] anchor-area-[top_center] anchor-try-[bottom_center,top_start,top_end] anchor-visibility-[anchors-visible] mt-2 z-20 opacity-0 translate-y-1 scale-95 pointer-events-none transition-all duration-200 ease-out open:opacity-100 open:translate-y-0 open:scale-100 open:pointer-events-auto"
+          role="tooltip"
+        >
+          <span class="rounded-lg border border-stone-700/60 bg-stone-900/95 backdrop-blur px-3 py-2 shadow-xl text-stone-200 text-[11px] max-w-[70ch] block">
+            <span class="flex items-center gap-1.5 font-medium text-xs text-stone-300">
+              <span class="[&>svg]:inline leading-none" set:html={bySlug['cjr'].companyIcon} />
+              <span>{bySlug['cjr'].title}</span>
+              <span class="text-stone-400">@</span>
+              <a href={bySlug['cjr'].companyURL}><span>{bySlug['cjr'].company}</span></a>
+            </span>
+            <span class="text-stone-400 text-[10px] mt-0.5 block"><b class="font-medium">{bySlug['cjr'].duration}</b> · {bySlug['cjr'].beginMonth}/{bySlug['cjr'].beginYear} - {bySlug['cjr'].isCurrent ? 'Present' : `${bySlug['cjr'].endMonth}/${bySlug['cjr'].endYear}`}</span>
+          </span>
+        </span>
+        <span
+          class="underline decoration-[3px] decoration-dotted [text-underline-position:under] decoration-[#01A255] anchor-name-[--interlegis] cursor-pointer py-1.5 hover:text-stone-300"
+          aria-describedby="tt-interlegis"
+        >
+          🏛️
+        </span>
+        <span
+          id="tt-interlegis"
+          popover
+          class="absolute anchor-[--interlegis] anchor-area-[top_center] anchor-try-[bottom_center,top_start,top_end] anchor-visibility-[anchors-visible] mt-2 z-20 opacity-0 translate-y-1 scale-95 pointer-events-none transition-all duration-200 ease-out open:opacity-100 open:translate-y-0 open:scale-100 open:pointer-events-auto"
+          role="tooltip"
+        >
+          <span class="rounded-lg border border-stone-700/60 bg-stone-900/95 backdrop-blur px-3 py-2 shadow-xl text-stone-200 text-[11px] max-w-[70ch] block">
+            <span class="flex items-center gap-1.5 font-medium text-xs text-stone-300">
+              <span class="[&>svg]:inline leading-none" set:html={bySlug['interlegis'].companyIcon} />
+              <span>{bySlug['interlegis'].title}</span>
+              <span class="text-stone-400">@</span>
+              <a href={bySlug['interlegis'].companyURL}><span>{bySlug['interlegis'].company}</span></a>
+            </span>
+            <span class="text-stone-400 text-[10px] mt-0.5 block"><b class="font-medium">{bySlug['interlegis'].duration}</b> · {bySlug['interlegis'].beginMonth}/{bySlug['interlegis'].beginYear} - {bySlug['interlegis'].isCurrent ? 'Present' : `${bySlug['interlegis'].endMonth}/${bySlug['interlegis'].endYear}`}</span>
+          </span>
+        </span>
+        <span
+          class="underline decoration-[3px] decoration-dotted [text-underline-position:under] decoration-[#0D2AD0] anchor-name-[--olist] cursor-pointer py-1.5 hover:text-stone-300"
+          aria-describedby="tt-olist"
+        >
+          🛍️
+        </span>
+        <span
+          id="tt-olist"
+          popover
+          class="absolute anchor-[--olist] anchor-area-[top_center] anchor-try-[bottom_center,top_start,top_end] anchor-visibility-[anchors-visible] mt-2 z-20 opacity-0 translate-y-1 scale-95 pointer-events-none transition-all duration-200 ease-out open:opacity-100 open:translate-y-0 open:scale-100 open:pointer-events-auto"
+          role="tooltip"
+        >
+          <span class="rounded-lg border border-stone-700/60 bg-stone-900/95 backdrop-blur px-3 py-2 shadow-xl text-stone-200 text-[11px] max-w-[70ch] block">
+            <span class="flex items-center gap-1.5 font-medium text-xs text-stone-300">
+              <span class="[&>svg]:inline leading-none" set:html={bySlug['olist'].companyIcon} />
+              <span>{bySlug['olist'].title}</span>
+              <span class="text-stone-400">@</span>
+              <a href={bySlug['olist'].companyURL}><span>{bySlug['olist'].company}</span></a>
+            </span>
+            <span class="text-stone-400 text-[10px] mt-0.5 block"><b class="font-medium">{bySlug['olist'].duration}</b> · {bySlug['olist'].beginMonth}/{bySlug['olist'].beginYear} - {bySlug['olist'].isCurrent ? 'Present' : `${bySlug['olist'].endMonth}/${bySlug['olist'].endYear}`}</span>
+          </span>
+        </span>
+        <span
+          class="underline decoration-[3px] decoration-dotted [text-underline-position:under] decoration-[#79F] anchor-name-[--bxblue] cursor-pointer py-1.5 hover:text-stone-300"
+          aria-describedby="tt-bxblue"
+        >
+          💰
+        </span>
+        <span
+          id="tt-bxblue"
+          popover
+          class="absolute anchor-[--bxblue] anchor-area-[top_center] anchor-try-[bottom_center,top_start,top_end] anchor-visibility-[anchors-visible] mt-2 z-20 opacity-0 translate-y-1 scale-95 pointer-events-none transition-all duration-200 ease-out open:opacity-100 open:translate-y-0 open:scale-100 open:pointer-events-auto"
+          role="tooltip"
+        >
+          <span class="rounded-lg border border-stone-700/60 bg-stone-900/95 backdrop-blur px-3 py-2 shadow-xl text-stone-200 text-[11px] max-w-[70ch] block">
+            <span class="flex items-center gap-1.5 font-medium text-xs text-stone-300">
+              <span class="[&>svg]:inline leading-none" set:html={bySlug['bxblue'].companyIcon} />
+              <span>{bySlug['bxblue'].title}</span>
+              <span class="text-stone-400">@</span>
+              <a href={bySlug['bxblue'].companyURL}><span>{bySlug['bxblue'].company}</span></a>
+            </span>
+            <span class="text-stone-400 text-[10px] mt-0.5 block"><b class="font-medium">{bySlug['bxblue'].duration}</b> · {bySlug['bxblue'].beginMonth}/{bySlug['bxblue'].beginYear} - {bySlug['bxblue'].isCurrent ? 'Present' : `${bySlug['bxblue'].endMonth}/${bySlug['bxblue'].endYear}`}</span>
+          </span>
+        </span>
       </span>
       I am now
-      <span class="cursor-pointer py-1.5 hover:text-stone-300">
-        <span class="underline decoration-[3px] decoration-dotted [text-underline-position:from-font] decoration-[#7300E5]">spearheading a seamless secrets management experience for big infrastructure teams</span>
-        🤫
+      <span
+        class="underline decoration-[3px] decoration-dotted [text-underline-position:from-font] decoration-[#7300E5] anchor-name-[--external-secrets] cursor-pointer py-1.5 hover:text-stone-300"
+        aria-describedby="tt-external-secrets"
+      >
+        spearheading a seamless secrets management experience for big infrastructure teams
+      </span>
+      🤫
+      <span
+        id="tt-external-secrets"
+        popover
+        class="absolute anchor-[--external-secrets] anchor-area-[top_center] anchor-try-[bottom_center,top_start,top_end] anchor-visibility-[anchors-visible] mt-2 z-20 opacity-0 translate-y-1 scale-95 pointer-events-none transition-all duration-200 ease-out open:opacity-100 open:translate-y-0 open:scale-100 open:pointer-events-auto"
+        role="tooltip"
+      >
+        <span class="rounded-lg border border-stone-700/60 bg-stone-900/95 backdrop-blur px-3 py-2 shadow-xl text-stone-200 text-[11px] max-w-[70ch] block">
+          <span class="flex items-center gap-1.5 font-medium text-xs text-stone-300">
+            <span class="[&>svg]:inline leading-none" set:html={bySlug['external-secrets'].companyIcon} />
+            <span>{bySlug['external-secrets'].title}</span>
+            <span class="text-stone-400">@</span>
+            <a href={bySlug['external-secrets'].companyURL}><span>{bySlug['external-secrets'].company}</span></a>
+          </span>
+          <span class="text-stone-400 text-[10px] mt-0.5 block"><b class="font-medium">{bySlug['external-secrets'].duration}</b> · {bySlug['external-secrets'].beginMonth}/{bySlug['external-secrets'].beginYear} - {bySlug['external-secrets'].isCurrent ? 'Present' : `${bySlug['external-secrets'].endMonth}/${bySlug['external-secrets'].endYear}`}</span>
+          {(bySlug['external-secrets'].stack?.length > 0 || bySlug['external-secrets'].design?.length > 0) && (
+            <span class="mt-1 text-[11px] text-stone-300 block">
+              {bySlug['external-secrets'].stack?.length > 0 && (
+                <>
+                  <strong>{bySlug['external-secrets'].stack[0]}</strong>{bySlug['external-secrets'].stack.slice(1).length > 0 && `, ${bySlug['external-secrets'].stack.slice(1).join(', ')}`}
+                </>
+              )}
+              {bySlug['external-secrets'].design?.length > 0 && ` — ${bySlug['external-secrets'].design.join(', ')}`}
+            </span>
+          )}
+        </span>
       </span>
     </p>
   </main>
-</Layout>
+ </Layout>
+
+ <script>
+   document.addEventListener('astro:page-load', () => {
+     const triggers = document.querySelectorAll('[aria-describedby]');
+     triggers.forEach((el) => {
+       const id = el.getAttribute('aria-describedby');
+       const tip = id ? document.getElementById(id) : null;
+       if (!tip || !('showPopover' in tip)) return;
+       let over = false, overTip = false;
+       const open = () => { try { tip.showPopover(); } catch {}
+         tip.classList.add('open'); };
+       const close = () => { if (!over && !overTip) { try { tip.hidePopover(); } catch {}
+         tip.classList.remove('open'); } };
+       el.addEventListener('mouseenter', () => { over = true; open(); });
+       el.addEventListener('mouseleave', () => { over = false; setTimeout(close, 50); });
+       el.addEventListener('focus', () => { over = true; open(); });
+       el.addEventListener('blur', () => { over = false; setTimeout(close, 50); });
+       tip.addEventListener('mouseenter', () => { overTip = true; });
+       tip.addEventListener('mouseleave', () => { overTip = false; setTimeout(close, 50); });
+     });
+   });
+ </script>
 
 <!-- background-color: transparent;
 opacity: 0.7;
