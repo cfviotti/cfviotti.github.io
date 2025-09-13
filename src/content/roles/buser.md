@@ -1,6 +1,5 @@
 ---
 title: "Front-End Developer & UI/UX Designer"
-duration: "aug 2021 - dec 2022 (1Y 4M)"
 begin: 2021-08-01
 end: 2022-12-01
 location: "Remote"
@@ -26,8 +25,8 @@ design:
 
 - **Led the Product Discovery and Front-End Development** of a dynamic blog-like feature, yielding **60k** SEO-optimized pages that elevated organic traffic from **500k to 2.5M** within **10 months**
 - **Developed the Front-End for the redesigned UX of our checkout page**, making it into a single-page flow without a sign-up requirement, resulting in a **16%** increase in conversion rate
-- **Optimized dozens of Design System Vue components** with in-depth documentation, accessibility-based unit testing, and **shrank its build size by 30%** by reducing unecessary JS dependencies
+- **Optimized dozens of Design System Vue components** with in-depth documentation, accessibility, unit testing, with **30% build size shrinking** by cleaning up large JS dependencies
 - **Promoted best practices for scalable CSS** across the organization, offering guidance and mentoring for all things related to styling
 <!-- - **Executed numerous end-to-end Design-Implementation tasks**, either designing with Figma or directly with code for quick delivery -->
 <!-- - **Wrote and advocated for thorough Pull Requests and Code Reviews**, fostering alignment on consistent best practices among other teams through my influence -->
-- **Mentored interns** via classes, assignments, code reviews, and pair programming opportunities
+<!-- - **Mentored interns** via classes, assignments, code reviews, and pair programming opportunities -->

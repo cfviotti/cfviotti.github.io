@@ -4,7 +4,7 @@ begin: 2016-03-01
 end: 2019-11-01
 location: "On-site"
 company: "LABHacker"
-companyURL: "https://sites.google.com/view/labhackercd/home"
+companyURL: "https://labhackercd.leg.br/"
 companyIcon:
   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" fill="none" viewBox="0 0 16 17">
     <path fill="#000" d="M5.714 4.646h4.572V.074H5.714v4.572ZM8 16.36c6.857 0 8-4.858 8-4.858H0s1.143 4.857 8 4.857Zm8-6h-4.572V5.79H16v4.57Z"/>

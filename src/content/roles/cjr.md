@@ -1,5 +1,5 @@
 ---
-supressed: true
+suppressed: true
 title: "Part-time Web Developer"
 begin: 2013-08-01
 end: 2014-08-01
@@ -13,4 +13,5 @@ companyIcon:
   </svg>
 info: "University of Brasilia"
 hiddenFromATS: true
+hidden: true
 ---

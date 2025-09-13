@@ -7,10 +7,12 @@ interface Props {
   companyURL: string;
   companyIcon: string;
   hiddenFromATS: boolean;
+  hidden: boolean;
   info: string;
   infoURL: string;
   stack: string[];
   design: string[];
+  suppressed?: boolean;
 }
 
 const {
@@ -21,23 +23,27 @@ const {
   companyURL,
   companyIcon,
   hiddenFromATS,
+  hidden,
   info,
   infoURL,
   stack,
-  design
+  design,
+  suppressed = false,
 } = Astro.props;
 
 const beginDate = new Date(begin);
 const endDate = new Date(end);
+const now = new Date();
 
-const beginMonth = String(beginDate.getMonth() + 2).padStart(2, '0');
-const beginYear = `${beginDate.getFullYear()}`;
+// If end date is in the future, calculate duration until now instead of end date
+const isCurrent = endDate > now;
 
-const endMonth = String(endDate.getMonth() + 2).padStart(2, '0');
-const endYear = `${endDate.getFullYear()}`;
+let duration = "";
 
-const diffYear = endDate.getFullYear() - beginDate.getFullYear();
-const diffMonth = endDate.getMonth() - beginDate.getMonth();
+// Calculate duration either up to now (if current) or up to end date
+const diffDate = isCurrent ? now : endDate;
+const diffYear = diffDate.getFullYear() - beginDate.getFullYear();
+const diffMonth = diffDate.getMonth() - beginDate.getMonth();
 
 let totalYears = diffYear;
 let totalMonths = diffMonth;
@@ -47,71 +53,95 @@ if (diffMonth < 0) {
   totalMonths = diffMonth + 12;
 }
 
-let duration = '';
-
 if (totalYears > 0) {
   duration += `${totalYears}Y`;
 }
 
 if (totalMonths > 0) {
   if (duration) {
-    duration += '';
+    duration += "";
   }
   duration += `${totalMonths}M`;
 }
+
+const beginMonth = String(beginDate.getMonth() + 2).padStart(2, "0");
+const beginYear = `${beginDate.getFullYear()}`;
+
+const endMonth = String(endDate.getMonth() + 2).padStart(2, "0");
+const endYear = `${endDate.getFullYear()}`;
 ---
-<section class="flex flex-col gap-2">
+
+<section class:list={[hidden && "hidden"]} class="flex flex-col gap-2">
   <div class="flex justify-between items-center">
     <span class="flex items-center gap-1.5 font-medium text-xs text-gray-400">
-      <span class="[&>svg]:inline leading-none" set:html={companyIcon}/>
+      <span class="[&>svg]:inline leading-none" set:html={companyIcon} />
       <h4 class="inline flex-initial max-w-none">
-        <span class:list={[hiddenFromATS && '[filter:opacity(0.99)]']}>{title}</span>
+        <span class:list={[hiddenFromATS && "[filter:opacity(0.99)]"]}
+          >{title}</span
+        >
 
-        <span class:list={['text-gray-300', hiddenFromATS && '[filter:opacity(0.99)]']}>@</span>
+        <span
+          class:list={[
+            "text-gray-300",
+            hiddenFromATS && "[filter:opacity(0.99)]",
+          ]}>@</span
+        >
 
-        <a href={companyURL}><span class:list={[hiddenFromATS && '[filter:opacity(0.99)]']}>{company}</span></a>
+        <a href={companyURL}><span class:list={[hiddenFromATS && "[filter:opacity(0.99)]"]}>{company}</span></a
+        >
 
-        {info && (
-          infoURL ?
-          <span class="font-normal text-[10px]">
-            (<a href={infoURL}><span class="[filter:opacity(0.99)]">{info}</span></a>)
-          </span>
-          :
-          <span class="font-normal text-[10px] [filter:opacity(0.99)]">
-            ({info})
-          </span>
-        )
+        {
+          info &&
+            (infoURL ?
+              <span class="font-normal text-[10px]">
+                <span class="[filter:opacity(0.99)]">(</span><a href={infoURL}><span class="[filter:opacity(0.99)]">{info}</span></a><span class="[filter:opacity(0.99)]">)</span>
+              </span>
+            :
+              <span class="font-normal text-[10px] [filter:opacity(0.99)]">
+                ({info})
+              </span>)
         }
       </h4>
     </span>
-    <span class="text-gray-400 text-[10px]"><b class="[filter:opacity(0.99)] font-medium">{duration}</b> | {beginMonth}/{beginYear} - {endMonth}/{endYear}</span>
+    <span class="text-gray-400 text-[10px]"><b class="[filter:opacity(0.99)] font-medium">{duration}</b> <span class="[filter:opacity(0.99)]">|</span> {beginMonth}/{beginYear} - {isCurrent ? <b class="font-medium">Present</b> : `${endMonth}/${endYear}`}</span>
   </div>
 
-  {!Astro.slots.default ? null : (
-    <div class="contents [&_strong]:font-semibold [&_*]:text-[11px] [&_*]:max-w-none [&_li]:p-0 [&_ul]:flex [&_ul]:flex-col [&_ul]:gap-2 [&_li] tracking-tight [&_li]:before:content-['•'] [&_li]:before:mr-0.5 leading-snug">
-      <slot />
-    </div>
-  )}
+  {
+    !suppressed && !Astro.slots.default ?
+      null
+    : !suppressed && (
+        <div class="contents [&_strong]:font-semibold [&_*]:text-[11px] [&_*]:max-w-none [&_li]:p-0 [&_ul]:flex [&_ul]:flex-col [&_ul]:gap-[6px] [&_ul]:list-disc [&_ul]:pl-[17px] print:[&_ul]:pl-[20px] [&_li]:pl-[5px] print:[&_li]:pl-[2px] [&_li]:leading-[1.35] tracking-tight leading-snug">
+          <slot />
+        </div>
+      )
+  }
 
-  {(stack?.length > 0 || design?.length > 0) &&
-    <section class="flex items-center gap-1.5">
-      <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="12" height="13" fill="none" viewBox="0 0 12 13">
-        <path stroke="#8F8F91" stroke-linecap="round" stroke-linejoin="round" d="m0 6.5 5.333 2.666 5.334-2.667M0 9.166l5.333 2.667 5.334-2.667m-5.334-8L0 3.833l5.333 2.666 5.334-2.666-5.334-2.667Z"/>
-      </svg>
-      <p class="text-gray-900 text-[10px] max-w-none">
-        {stack.length > 0 && (
-          <>
-            <strong>{stack[0]}</strong>{stack.slice(1).length > 0 && `, ${stack.slice(1).join(', ')}`}
-          </>
-        )}
-        {design?.length > 0 && ` / ${design.join(', ')}`}
-      </p>
-    </section>
+  {
+    !suppressed && (stack?.length > 0 || design?.length > 0) && (
+      <section class="flex items-center gap-[8px]">
+        <svg
+          class="inline ml-[3px]"
+          xmlns="http://www.w3.org/2000/svg"
+          width="11"
+          height="13"
+          fill="none"
+          viewBox="0 0 12 13"
+        >
+          <path stroke="#8F8F91" stroke-linecap="round" stroke-linejoin="round" d="m0 6.5 5.333 2.666 5.334-2.667M0 9.166l5.333 2.667 5.334-2.667m-5.334-8L0 3.833l5.333 2.666 5.334-2.666-5.334-2.667Z"/>
+        </svg>
+        <p class="text-gray-900 text-[10px] max-w-none">
+          {stack.length > 0 && (
+            <>
+              <strong>{stack[0]}</strong>{stack.slice(1).length > 0 && `, ${stack.slice(1).join(", ")}`}
+            </>
+          )}
+          {design?.length > 0 && ` — ${design.join(", ")}`}
+        </p>
+      </section>
+    )
   }
 </section>
 
 <script>
-
-console.log(Astro.slots.default);
-
+  console.log(Astro.slots.default);
 </script>

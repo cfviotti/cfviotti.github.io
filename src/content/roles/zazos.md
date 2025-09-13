@@ -1,6 +1,5 @@
 ---
 title: "Founding UX Engineer"
-duration: "aug 2021 - dec 2022 (1Y 4M)"
 begin: 2023-03-01
 end: 2024-06-01
 location: "Remote"
@@ -26,7 +25,7 @@ design:
   - "Whimsical"
 ---
 
-- **⁠Managed and developed the company’s Design System from scratch**, creating **20** tailored components for optimal DX/UX with Vue + StoryBook, cutting **70%** of unstructured UI lib code
+- **⁠Managed and developed the company's Design System from scratch**, creating **20** tailored components for optimal DevX/UX with Vue + StoryBook, cutting **70%** of legacy UI lib code
 - **⁠Led the platform-wide UI redesign and its Front-End refactoring**, enhancing user-facing and back-office screens with consistency in UI and copy, with overwhelming client satisfaction
 - **⁠Led the Front-End refactoring and UX overhaul for the Workflow Automations** of the platform's Low-Code segment, utilizing a new node-based UI pattern, resulting in **53%** increased usage
 - ⁠**Led the implementation of a pseudo-viewport component** for rendering **9** possible layout views of our platform while ensuring full consistency in navigation between pages using them

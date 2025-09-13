@@ -15,7 +15,7 @@ import '@fontsource/inter/900.css';
 const { title } = Astro.props;
 ---
 <!doctype html>
-<html lang="en">
+<html lang="en" class="print:bg-black">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="description" content="👋 I'm a product-driven UX Engineer who loves solving any business problem. Welcome to my link hub!" />
@@ -25,8 +25,39 @@ const { title } = Astro.props;
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<title>Caio Viotti 🧑‍💻🎨 UX Engineer{title && ` | ${title}`}</title>
 	</head>
-	<body>
-		<slot />
+	<body class="py-24 flex flex-col print:p-0 print:bg-black print:m-0">
+		<header class="flex w-full px-6 py-6 bg-stone-950 fixed top-0 bg-transparent z-10 print:hidden">
+			<div class="w-full h-28 bg-gradient-to-b from-25% from-stone-950 to-transparent absolute top-0 left-0 -z-10"></div>
+      <div class="flex w-full justify-between items-center">
+				<a href="/">
+					<svg class="h-7 w-auto text-white" role="img" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 116 32"><title>Caio Viotti - UX Engineer</title><path fill="currentColor" d="m0 25.45 3.56 6.3 14.21-25.2h28.44L42.65.27H14.22L0 25.45Z" style="mix-blend-mode:difference"/><path fill="currentColor" d="M10.66 31.74H32l10.66-18.89h-7.1l-7.11 12.6H14.22l-3.56 6.3Z" style="mix-blend-mode:difference"/><path fill="currentColor" fill-rule="evenodd" d="M107.97 13.96c-1.42 0-2.7-.3-3.84-.89a6.88 6.88 0 0 1-2.66-2.5A6.73 6.73 0 0 1 100.5 7c0-1.32.33-2.51.97-3.58a6.66 6.66 0 0 1 2.66-2.5 8.02 8.02 0 0 1 3.84-.91c1.41 0 2.68.3 3.8.91a6.63 6.63 0 0 1 2.69 2.5c.65 1.06.97 2.26.97 3.58a6.73 6.73 0 0 1-3.65 6.08c-1.13.6-2.4.9-3.81.9Zm0-3.02a3.65 3.65 0 0 0 1.91-.51 3.6 3.6 0 0 0 1.37-1.4 4.27 4.27 0 0 0 .48-2.04c0-.76-.16-1.44-.48-2.03a3.56 3.56 0 0 0-1.37-1.43 3.65 3.65 0 0 0-1.91-.51 3.77 3.77 0 0 0-1.95.51 3.77 3.77 0 0 0-1.36 1.43c-.32.59-.48 1.27-.48 2.03 0 .75.16 1.43.48 2.04a3.82 3.82 0 0 0 1.36 1.4 3.77 3.77 0 0 0 1.95.52Z" clip-rule="evenodd" style="mix-blend-mode:difference"/><path fill="currentColor" d="M69.96 13.96c-1.4 0-2.66-.3-3.79-.89a6.89 6.89 0 0 1-2.65-2.5A6.73 6.73 0 0 1 62.55 7c0-1.32.32-2.51.97-3.57a6.67 6.67 0 0 1 2.65-2.5 7.85 7.85 0 0 1 3.8-.92c1.27 0 2.38.2 3.3.58a6 6 0 0 1 2.43 1.88l-2.36 2.17a4.03 4.03 0 0 0-3.24-1.61 3.8 3.8 0 0 0-2.8 1.1 3.91 3.91 0 0 0-1.08 2.87c0 .78.16 1.47.49 2.08.34.6.8 1.06 1.38 1.38.6.33 1.27.5 2.01.5 1.28 0 2.36-.54 3.24-1.62l2.35 2.18a6.06 6.06 0 0 1-2.42 1.87c-.94.39-2.04.58-3.3.58Z" style="mix-blend-mode:difference"/><path fill="currentColor" fill-rule="evenodd" d="M87.66 11.04h-6.22l-1.1 2.67H76.8L82.76.26h3.6l5.99 13.45h-3.6l-1.1-2.67Zm-1.11-2.67-1.99-4.86-2.01 4.86h4Z" clip-rule="evenodd" style="mix-blend-mode:difference"/><path fill="currentColor" d="M97.8.26h-3.64V13.7h3.65V.26ZM59.06 31.74l5.78-13.44h-3.6l-3.89 9.14-3.79-9.15h-3.88l5.78 13.45h3.6ZM65.6 18.3h3.65v13.44H65.6V18.3Z" style="mix-blend-mode:difference"/><path fill="currentColor" fill-rule="evenodd" d="M74.51 31.11c1.14.6 2.42.89 3.84.89 1.41 0 2.68-.3 3.8-.89a6.73 6.73 0 0 0 3.65-6.08c0-1.32-.31-2.52-.96-3.58a6.63 6.63 0 0 0-2.68-2.5 7.88 7.88 0 0 0-3.81-.91c-1.42 0-2.7.3-3.84.91a6.66 6.66 0 0 0-2.66 2.5 6.73 6.73 0 0 0-.97 3.58c0 1.33.33 2.52.97 3.58a6.89 6.89 0 0 0 2.66 2.5Zm5.75-2.64a3.65 3.65 0 0 1-1.91.51 3.77 3.77 0 0 1-1.94-.51 3.82 3.82 0 0 1-1.37-1.4 4.26 4.26 0 0 1-.48-2.04c0-.76.16-1.44.48-2.03a3.77 3.77 0 0 1 1.36-1.43 3.77 3.77 0 0 1 1.94-.51A3.64 3.64 0 0 1 81.64 23c.32.59.48 1.27.48 2.03 0 .75-.16 1.43-.48 2.04a3.6 3.6 0 0 1-1.37 1.4Z" clip-rule="evenodd" style="mix-blend-mode:difference"/><path fill="currentColor" d="M110.03 18.3h3.65v13.44h-3.65V18.3Zm-24.47 2.87h4.18v10.57h3.65V21.17h7.86v10.57h3.65V21.17h4.18V18.3H85.56v2.88Z" style="mix-blend-mode:difference"/></svg>
+				</a>
+
+				<div class="flex gap-6">
+					<a
+						class="text-white rounded-full w-8 bg-none [filter:drop-shadow(0px_0px_16px_transparent)] duration-[400ms] drop-shadow [transition:scale_200ms_ease-in,filter_300ms_cubic-bezier(0.8,0.6,0,1)] hover:[filter:drop-shadow(0px_0px_16px_white)] hover:[scale:1.1]"
+						href="https://www.linkedin.com/in/caioviotti/"
+					>
+						<svg aria-hidden="true" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M4.5 6v5m6 0V8.5a2 2 0 10-4 0V11 6M4 4.5h1M1.5.5h12a1 1 0 011 1v12a1 1 0 01-1 1h-12a1 1 0 01-1-1v-12a1 1 0 011-1z" stroke="currentColor"></path></svg>
+					</a>
+					<a
+						class="text-white rounded-full w-8 bg-none [filter:drop-shadow(0px_0px_16px_transparent)] duration-[400ms] drop-shadow [transition:scale_200ms_ease-in,filter_300ms_cubic-bezier(0.8,0.6,0,1)] hover:[filter:drop-shadow(0px_0px_16px_white)] hover:[scale:1.1]"
+						href="https://github.com/cfviotti"
+					>
+						<svg aria-hidden="true" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M5.65 12.477a.5.5 0 10-.3-.954l.3.954zm-3.648-2.96l-.484-.128-.254.968.484.127.254-.968zM9 14.5v.5h1v-.5H9zm.063-4.813l-.054-.497a.5.5 0 00-.299.852l.352-.354zM12.5 5.913h.5V5.91l-.5.002zm-.833-2.007l-.466-.18a.5.5 0 00.112.533l.354-.353zm-.05-2.017l.456-.204a.5.5 0 00-.319-.276l-.137.48zm-2.173.792l-.126.484a.5.5 0 00.398-.064l-.272-.42zm-3.888 0l-.272.42a.5.5 0 00.398.064l-.126-.484zM3.383 1.89l-.137-.48a.5.5 0 00-.32.276l.457.204zm-.05 2.017l.354.353a.5.5 0 00.112-.534l-.466.181zM2.5 5.93H3v-.002l-.5.002zm3.438 3.758l.352.355a.5.5 0 00-.293-.851l-.06.496zM5.5 11H6l-.001-.037L5.5 11zM5 14.5v.5h1v-.5H5zm.35-2.977c-.603.19-.986.169-1.24.085-.251-.083-.444-.25-.629-.49a4.8 4.8 0 01-.27-.402c-.085-.139-.182-.302-.28-.447-.191-.281-.473-.633-.929-.753l-.254.968c.08.02.184.095.355.346.082.122.16.252.258.412.094.152.202.32.327.484.253.33.598.663 1.11.832.51.168 1.116.15 1.852-.081l-.3-.954zm4.65-.585c0-.318-.014-.608-.104-.878-.096-.288-.262-.51-.481-.727l-.705.71c.155.153.208.245.237.333.035.105.053.254.053.562h1zm-.884-.753c.903-.097 1.888-.325 2.647-.982.78-.675 1.237-1.729 1.237-3.29h-1c0 1.359-.39 2.1-.892 2.534-.524.454-1.258.653-2.099.743l.107.995zM13 5.91a3.354 3.354 0 00-.98-2.358l-.707.706c.438.44.685 1.034.687 1.655l1-.003zm-.867-1.824c.15-.384.22-.794.21-1.207l-1 .025a2.12 2.12 0 01-.142.82l.932.362zm.21-1.207a3.119 3.119 0 00-.27-1.195l-.913.408c.115.256.177.532.184.812l1-.025zm-.726-.99c.137-.481.137-.482.136-.482h-.003l-.004-.002a.462.462 0 00-.03-.007 1.261 1.261 0 00-.212-.024 2.172 2.172 0 00-.51.054c-.425.091-1.024.317-1.82.832l.542.84c.719-.464 1.206-.634 1.488-.694a1.2 1.2 0 01.306-.03l-.008-.001a.278.278 0 01-.01-.002l-.006-.002h-.003l-.002-.001c-.001 0-.002 0 .136-.482zm-2.047.307a8.209 8.209 0 00-4.14 0l.252.968a7.209 7.209 0 013.636 0l.252-.968zm-3.743.064c-.797-.514-1.397-.74-1.822-.83a2.17 2.17 0 00-.51-.053 1.259 1.259 0 00-.241.03l-.004.002h-.003l.136.481.137.481h-.001l-.002.001-.003.001a.327.327 0 01-.016.004l-.008.001h.008a1.19 1.19 0 01.298.03c.282.06.769.23 1.488.694l.543-.84zm-2.9-.576a3.12 3.12 0 00-.27 1.195l1 .025a2.09 2.09 0 01.183-.812l-.913-.408zm-.27 1.195c-.01.413.06.823.21 1.207l.932-.362a2.12 2.12 0 01-.143-.82l-1-.025zm.322.673a3.354 3.354 0 00-.726 1.091l.924.38c.118-.285.292-.545.51-.765l-.708-.706zm-.726 1.091A3.354 3.354 0 002 5.93l1-.003c0-.31.06-.616.177-.902l-.924-.38zM2 5.93c0 1.553.458 2.597 1.239 3.268.757.65 1.74.88 2.64.987l.118-.993C5.15 9.09 4.416 8.89 3.89 8.438 3.388 8.007 3 7.276 3 5.928H2zm3.585 3.404c-.5.498-.629 1.09-.584 1.704L6 10.963c-.03-.408.052-.683.291-.921l-.705-.709zM5 11v3.5h1V11H5zm5 3.5V13H9v1.5h1zm0-1.5v-2.063H9V13h1z" fill="currentColor"></path></svg>
+					</a>
+					<a
+						class="text-white rounded-full w-8 bg-none [filter:drop-shadow(0px_0px_16px_transparent)] duration-[400ms] drop-shadow [transition:scale_200ms_ease-in,filter_300ms_cubic-bezier(0.8,0.6,0,1)] hover:[filter:drop-shadow(0px_0px_16px_white)] hover:[scale:1.1]"
+						href="/cv"
+					>
+						<svg aria-hidden="true" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M4.5 6.995H4v1h.5v-1zm6 1h.5v-1h-.5v1zm-6 1.998H4v1h.5v-1zm6 1.007h.5v-1h-.5v1zm-6-7.003H4v1h.5v-1zM8.5 5H9V4h-.5v1zm2-4.5l.354-.354L10.707 0H10.5v.5zm3 3h.5v-.207l-.146-.147-.354.354zm-9 4.495h6v-1h-6v1zm0 2.998l6 .007v-1l-6-.007v1zm0-5.996L8.5 5V4l-4-.003v1zm8 9.003h-10v1h10v-1zM2 13.5v-12H1v12h1zM2.5 1h8V0h-8v1zM13 3.5v10h1v-10h-1zM10.146.854l3 3 .708-.708-3-3-.708.708zM2.5 14a.5.5 0 01-.5-.5H1A1.5 1.5 0 002.5 15v-1zm10 1a1.5 1.5 0 001.5-1.5h-1a.5.5 0 01-.5.5v1zM2 1.5a.5.5 0 01.5-.5V0A1.5 1.5 0 001 1.5h1z" fill="currentColor"></path></svg>
+					</a>
+				</div>
+			</div>
+    </header>
+		<div class="flex-1 flex flex-col px-6 print:p-0 [&~*]:print:hidden">
+			<slot />
+		</div>
 	</body>
 </html>
 <style is:global>
@@ -36,7 +67,7 @@ const { title } = Astro.props;
 		font-family: 'Inter', system-ui, sans-serif;
 		font-display: swap;
 
-		@apply bg-black;
+		@apply bg-stone-950;
 	}
 
 	a {

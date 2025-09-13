@@ -1,5 +1,5 @@
 ---
-supressed: true
+suppressed: true
 title: "Part-time Web Development Intern"
 begin: 2013-12-01
 end: 2015-12-01
@@ -12,4 +12,5 @@ companyIcon:
     <circle cx="2.2" cy="5.436" r="2.2" fill="#F4B708"/>
   </svg>
 hiddenFromATS: true
+hidden: true
 ---
