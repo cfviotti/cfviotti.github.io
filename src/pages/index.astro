@@ -1,12 +1,23 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import { getCollection } from 'astro:content';
+import Layout from "../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+import AnchoredCard from "../components/AnchoredCard.astro";
+import RoleSummary from "../components/RoleSummary.astro";
 
-const roles = await getCollection('roles');
-const targetSlugs = ['labhacker', 'buser', 'zazos', 'cjr', 'interlegis', 'olist', 'bxblue', 'external-secrets'];
+const roles = await getCollection("roles");
+const targetSlugs = [
+  "labhacker",
+  "buser",
+  "zazos",
+  "cjr",
+  "interlegis",
+  "olist",
+  "bxblue",
+  "external-secrets",
+];
 const hoverRoles = roles
-  .map(r => {
-    const base = (r.id.split('/').pop() || r.id).replace(/\.md$/, '');
+  .map((r) => {
+    const base = (r.id.split("/").pop() || r.id).replace(/\.md$/, "");
     return { entry: r, slug: base };
   })
   .filter(({ slug }) => targetSlugs.includes(slug))
@@ -23,7 +34,7 @@ const hoverRoles = roles
     stack: entry.data.stack ?? [],
     design: entry.data.design ?? [],
   }))
-  .map(r => {
+  .map((r) => {
     const beginDate = new Date(r.begin);
     const endDateCandidate = new Date(r.end);
     const now = new Date();
@@ -36,14 +47,14 @@ const hoverRoles = roles
       years -= 1;
       months += 12;
     }
-    let duration = '';
+    let duration = "";
     if (years > 0) duration += `${years}Y`;
-    if (months > 0) duration += `${duration ? ' ' : ''}${months}M`;
-    if (!duration) duration = '0M';
+    if (months > 0) duration += `${duration ? " " : ""}${months}M`;
+    if (!duration) duration = "0M";
 
-    const beginMonth = String(beginDate.getMonth() + 1).padStart(2, '0');
+    const beginMonth = String(beginDate.getMonth() + 1).padStart(2, "0");
     const beginYear = `${beginDate.getFullYear()}`;
-    const endMonth = String(endDateCandidate.getMonth() + 1).padStart(2, '0');
+    const endMonth = String(endDateCandidate.getMonth() + 1).padStart(2, "0");
     const endYear = `${endDateCandidate.getFullYear()}`;
 
     return {
@@ -57,271 +68,158 @@ const hoverRoles = roles
     };
   });
 
-const bySlug = Object.fromEntries(hoverRoles.map(r => [r.slug, r]));
+const bySlug = Object.fromEntries(hoverRoles.map((r) => [r.slug, r]));
 ---
 
 <Layout>
-  <main class=" flex-1 flex-col gap-14 flex items-center justify-center max-w-screen-lg mx-auto">
-    <p class="[&:has(span:hover)]:text-stone-300/30 [&:has(span:hover)_span:not(:hover)]:decoration-stone-300/30 text-2xl md:text-3xl leading-normal font-extralight text-stone-300">
-      Olá 👋 I'm Caio Viotti 🇧🇷 🇪🇺
-      I discover what you need 🔍
-      draw pretty screens 🎨
-      and push web pixels ⌨️
-      Not always in that order 🤷‍♂️
-      I
-      <span
-        class="underline decoration-[3px] decoration-dotted [text-underline-position:from-font] decoration-stone-300 anchor-name-[--labhacker] cursor-pointer py-1.5 hover:text-stone-300"
-        aria-describedby="tt-labhacker"
+  <div
+    class="fixed w-0 h-0 [anchor-name:--pointer] top-0 left-0 [transform:translate(calc(var(--mouse-x)*1px),calc(var(--mouse-y)*1px))]"
+    data-role-pointer
+  />
+  <main
+    class="flex-1 flex-col gap-14 flex items-center justify-center max-w-screen-lg mx-auto"
+  >
+    <p
+      class="
+        group/main-text text-2xl leading-normal font-extralight text-stone-300
+        transition-all duration-300 ease-in-out
+        supports-[not(position-anchor:auto)]:relative
+        md:text-3xl
+        [&:has([data-role-label]:is(:hover,:focus-visible))_[data-role-label]:not(:is(:hover,:focus-visible))]:opacity-30
+      "
+    >
+      <AnchoredCard
+        name="olar"
+        label="Olá 👋"
+        triggerClass="bg-[oklch(0.80_0_0/0.2)] outline-[oklch(0.80_0_0)]"
       >
-        facilitated numerous experiments for the legislative government
-      </span>
-      ⚖️
-      <span
-        id="tt-labhacker"
-        popover
-        class="absolute anchor-[--labhacker] anchor-area-[top_center] anchor-try-[bottom_center,top_start,top_end] anchor-visibility-[anchors-visible] mt-2 z-20 opacity-0 translate-y-1 scale-95 pointer-events-none transition-all duration-200 ease-out open:opacity-100 open:translate-y-0 open:scale-100 open:pointer-events-auto"
-        role="tooltip"
+        That's how we say hello from where I'm from 🖖
+      </AnchoredCard>
+      <AnchoredCard
+        name="thats-me"
+        label="I'm Caio 🇧🇷 🇪🇺"
+        triggerClass="bg-[oklch(0.80_0_0/0.2)] outline-[oklch(0.80_0_0)]"
       >
-        <span class="rounded-lg border border-stone-700/60 bg-stone-900/95 backdrop-blur px-3 py-2 shadow-xl text-stone-200 text-[11px] max-w-[70ch] block">
-          <span class="flex items-center gap-1.5 font-medium text-xs text-stone-300">
-            <span class="[&>svg]:inline leading-none" set:html={bySlug['labhacker'].companyIcon} />
-            <span>{bySlug['labhacker'].title}</span>
-            <span class="text-stone-400">@</span>
-            <a href={bySlug['labhacker'].companyURL}><span>{bySlug['labhacker'].company}</span></a>
-          </span>
-          <span class="text-stone-400 text-[10px] mt-0.5 block"><b class="font-medium">{bySlug['labhacker'].duration}</b> · {bySlug['labhacker'].beginMonth}/{bySlug['labhacker'].beginYear} - {bySlug['labhacker'].isCurrent ? 'Present' : `${bySlug['labhacker'].endMonth}/${bySlug['labhacker'].endYear}`}</span>
-          {(bySlug['labhacker'].stack?.length > 0 || bySlug['labhacker'].design?.length > 0) && (
-            <span class="mt-1 text-[11px] text-stone-300 block">
-              {bySlug['labhacker'].stack?.length > 0 && (
-                <>
-                  <strong>{bySlug['labhacker'].stack[0]}</strong>{bySlug['labhacker'].stack.slice(1).length > 0 && `, ${bySlug['labhacker'].stack.slice(1).join(', ')}`}
-                </>
-              )}
-              {bySlug['labhacker'].design?.length > 0 && ` — ${bySlug['labhacker'].design.join(', ')}`}
-            </span>
-          )}
-        </span>
-      </span>
-      <span
-        class="underline decoration-[3px] decoration-dotted [text-underline-position:from-font] decoration-[#F11075] anchor-name-[--buser] cursor-pointer py-1.5 hover:text-stone-300"
-        aria-describedby="tt-buser"
+        I'm an Italo-Brazilian based in Brazil 🤌⚽ I don't love soccer and neither speak Italian 🤷‍♂️ but you might catch me eating some pizza while having a caipirinha 🍕🍹
+      </AnchoredCard>
+      <AnchoredCard
+        name="ux-designer"
+        label="I discover what you need 🔍"
+        triggerClass="bg-[oklch(0.80_0_0/0.2)] outline-[oklch(0.80_0_0)]"
       >
-        revved up conversion and organic traffic for bus travel democratization
-      </span>
-      🚌
-      <span
-        id="tt-buser"
-        popover
-        class="absolute anchor-[--buser] anchor-area-[top_center] anchor-try-[bottom_center,top_start,top_end] anchor-visibility-[anchors-visible] mt-2 z-20 opacity-0 translate-y-1 scale-95 pointer-events-none transition-all duration-200 ease-out open:opacity-100 open:translate-y-0 open:scale-100 open:pointer-events-auto"
-        role="tooltip"
+        Product-driven user experiences are my jam! 🤩 I love finding out the <span class="font-bold italic">right</span> problems to solve them through research and observation 👀
+      </AnchoredCard>
+      <AnchoredCard
+        name="ui-designer"
+        label="dress pixels sharp 👗"
+        triggerClass="bg-[oklch(0.80_0_0/0.2)] outline-[oklch(0.80_0_0)]"
       >
-        <span class="rounded-lg border border-stone-700/60 bg-stone-900/95 backdrop-blur px-3 py-2 shadow-xl text-stone-200 text-[11px] max-w-[70ch] block">
-          <span class="flex items-center gap-1.5 font-medium text-xs text-stone-300">
-            <span class="[&>svg]:inline leading-none" set:html={bySlug['buser'].companyIcon} />
-            <span>{bySlug['buser'].title}</span>
-            <span class="text-stone-400">@</span>
-            <a href={bySlug['buser'].companyURL}><span>{bySlug['buser'].company}</span></a>
-          </span>
-          <span class="text-stone-400 text-[10px] mt-0.5 block"><b class="font-medium">{bySlug['buser'].duration}</b> · {bySlug['buser'].beginMonth}/{bySlug['buser'].beginYear} - {bySlug['buser'].isCurrent ? 'Present' : `${bySlug['buser'].endMonth}/${bySlug['buser'].endYear}`}</span>
-          {(bySlug['buser'].stack?.length > 0 || bySlug['buser'].design?.length > 0) && (
-            <span class="mt-1 text-[11px] text-stone-300 block">
-              {bySlug['buser'].stack?.length > 0 && (
-                <>
-                  <strong>{bySlug['buser'].stack[0]}</strong>{bySlug['buser'].stack.slice(1).length > 0 && `, ${bySlug['buser'].stack.slice(1).join(', ')}`}
-                </>
-              )}
-              {bySlug['buser'].design?.length > 0 && ` — ${bySlug['buser'].design.join(', ')}`}
-            </span>
-          )}
-        </span>
-      </span>
-      <span
-        class="underline decoration-[3px] decoration-dotted [text-underline-position:from-font] decoration-[#FD8C41] anchor-name-[--zazos] cursor-pointer py-1.5 hover:text-stone-300"
-        aria-describedby="tt-zazos"
+        I do high-fidelity UI work on Figma before implementation for complex features ✨ I would say I do low-fidelity too, but nowadays I'm "outsourcing" these to <b>v0</b> because there's no turning back 🤖
+      </AnchoredCard>
+      <AnchoredCard
+        name="fe-engineer"
+        label="and introduce them to prod 🚀"
+        triggerClass="bg-[oklch(0.80_0_0/0.2)] outline-[oklch(0.80_0_0)]"
       >
-        polished and enhanced how HR teams (low) code their needs
-      </span>
-      ⚡
-      <span
-        id="tt-zazos"
-        popover
-        class="absolute anchor-[--zazos] anchor-area-[top_center] anchor-try-[bottom_center,top_start,top_end] anchor-visibility-[anchors-visible] mt-2 z-20 opacity-0 translate-y-1 scale-95 pointer-events-none transition-all duration-200 ease-out open:opacity-100 open:translate-y-0 open:scale-100 open:pointer-events-auto"
-        role="tooltip"
+        This is what you'll actually see me doing most of my time 👨‍💻 Shipping Front-End code is truly what I'm most excited about 🚢 especially if I authored the UI/UX behind it 🎨 I also frequently hear that I'm CSS Wizard 🧙‍♂️
+      </AnchoredCard>
+      <AnchoredCard
+        name="design-engineer"
+        label="Not always in that order 🤷‍♂️"
+        triggerClass="bg-[oklch(0.80_0_0/0.2)] outline-[oklch(0.80_0_0)]"
       >
-        <span class="rounded-lg border border-stone-700/60 bg-stone-900/95 backdrop-blur px-3 py-2 shadow-xl text-stone-200 text-[11px] max-w-[70ch] block">
-          <span class="flex items-center gap-1.5 font-medium text-xs text-stone-300">
-            <span class="[&>svg]:inline leading-none" set:html={bySlug['zazos'].companyIcon} />
-            <span>{bySlug['zazos'].title}</span>
-            <span class="text-stone-400">@</span>
-            <a href={bySlug['zazos'].companyURL}><span>{bySlug['zazos'].company}</span></a>
-          </span>
-          <span class="text-stone-400 text-[10px] mt-0.5 block"><b class="font-medium">{bySlug['zazos'].duration}</b> · {bySlug['zazos'].beginMonth}/{bySlug['zazos'].beginYear} - {bySlug['zazos'].isCurrent ? 'Present' : `${bySlug['zazos'].endMonth}/${bySlug['zazos'].endYear}`}</span>
-          {(bySlug['zazos'].stack?.length > 0 || bySlug['zazos'].design?.length > 0) && (
-            <span class="mt-1 text-[11px] text-stone-300 block">
-              {bySlug['zazos'].stack?.length > 0 && (
-                <>
-                  <strong>{bySlug['zazos'].stack[0]}</strong>{bySlug['zazos'].stack.slice(1).length > 0 && `, ${bySlug['zazos'].stack.slice(1).join(', ')}`}
-                </>
-              )}
-              {bySlug['zazos'].design?.length > 0 && ` — ${bySlug['zazos'].design.join(', ')}`}
-            </span>
-          )}
-        </span>
-      </span>
-      among other awesome endeavors
-      <span class="whitespace-nowrap">
-        <span
-          class="underline decoration-[3px] decoration-dotted [text-underline-position:under] decoration-[#013366] anchor-name-[--cjr] cursor-pointer py-1.5 hover:text-stone-300"
-          aria-describedby="tt-cjr"
-        >
-          💻
-        </span>
-        <span
-          id="tt-cjr"
-          popover
-          class="absolute anchor-[--cjr] anchor-area-[top_center] anchor-try-[bottom_center,top_start,top_end] anchor-visibility-[anchors-visible] mt-2 z-20 opacity-0 translate-y-1 scale-95 pointer-events-none transition-all duration-200 ease-out open:opacity-100 open:translate-y-0 open:scale-100 open:pointer-events-auto"
-          role="tooltip"
-        >
-          <span class="rounded-lg border border-stone-700/60 bg-stone-900/95 backdrop-blur px-3 py-2 shadow-xl text-stone-200 text-[11px] max-w-[70ch] block">
-            <span class="flex items-center gap-1.5 font-medium text-xs text-stone-300">
-              <span class="[&>svg]:inline leading-none" set:html={bySlug['cjr'].companyIcon} />
-              <span>{bySlug['cjr'].title}</span>
-              <span class="text-stone-400">@</span>
-              <a href={bySlug['cjr'].companyURL}><span>{bySlug['cjr'].company}</span></a>
-            </span>
-            <span class="text-stone-400 text-[10px] mt-0.5 block"><b class="font-medium">{bySlug['cjr'].duration}</b> · {bySlug['cjr'].beginMonth}/{bySlug['cjr'].beginYear} - {bySlug['cjr'].isCurrent ? 'Present' : `${bySlug['cjr'].endMonth}/${bySlug['cjr'].endYear}`}</span>
-          </span>
-        </span>
-        <span
-          class="underline decoration-[3px] decoration-dotted [text-underline-position:under] decoration-[#01A255] anchor-name-[--interlegis] cursor-pointer py-1.5 hover:text-stone-300"
-          aria-describedby="tt-interlegis"
-        >
-          🏛️
-        </span>
-        <span
-          id="tt-interlegis"
-          popover
-          class="absolute anchor-[--interlegis] anchor-area-[top_center] anchor-try-[bottom_center,top_start,top_end] anchor-visibility-[anchors-visible] mt-2 z-20 opacity-0 translate-y-1 scale-95 pointer-events-none transition-all duration-200 ease-out open:opacity-100 open:translate-y-0 open:scale-100 open:pointer-events-auto"
-          role="tooltip"
-        >
-          <span class="rounded-lg border border-stone-700/60 bg-stone-900/95 backdrop-blur px-3 py-2 shadow-xl text-stone-200 text-[11px] max-w-[70ch] block">
-            <span class="flex items-center gap-1.5 font-medium text-xs text-stone-300">
-              <span class="[&>svg]:inline leading-none" set:html={bySlug['interlegis'].companyIcon} />
-              <span>{bySlug['interlegis'].title}</span>
-              <span class="text-stone-400">@</span>
-              <a href={bySlug['interlegis'].companyURL}><span>{bySlug['interlegis'].company}</span></a>
-            </span>
-            <span class="text-stone-400 text-[10px] mt-0.5 block"><b class="font-medium">{bySlug['interlegis'].duration}</b> · {bySlug['interlegis'].beginMonth}/{bySlug['interlegis'].beginYear} - {bySlug['interlegis'].isCurrent ? 'Present' : `${bySlug['interlegis'].endMonth}/${bySlug['interlegis'].endYear}`}</span>
-          </span>
-        </span>
-        <span
-          class="underline decoration-[3px] decoration-dotted [text-underline-position:under] decoration-[#0D2AD0] anchor-name-[--olist] cursor-pointer py-1.5 hover:text-stone-300"
-          aria-describedby="tt-olist"
-        >
-          🛍️
-        </span>
-        <span
-          id="tt-olist"
-          popover
-          class="absolute anchor-[--olist] anchor-area-[top_center] anchor-try-[bottom_center,top_start,top_end] anchor-visibility-[anchors-visible] mt-2 z-20 opacity-0 translate-y-1 scale-95 pointer-events-none transition-all duration-200 ease-out open:opacity-100 open:translate-y-0 open:scale-100 open:pointer-events-auto"
-          role="tooltip"
-        >
-          <span class="rounded-lg border border-stone-700/60 bg-stone-900/95 backdrop-blur px-3 py-2 shadow-xl text-stone-200 text-[11px] max-w-[70ch] block">
-            <span class="flex items-center gap-1.5 font-medium text-xs text-stone-300">
-              <span class="[&>svg]:inline leading-none" set:html={bySlug['olist'].companyIcon} />
-              <span>{bySlug['olist'].title}</span>
-              <span class="text-stone-400">@</span>
-              <a href={bySlug['olist'].companyURL}><span>{bySlug['olist'].company}</span></a>
-            </span>
-            <span class="text-stone-400 text-[10px] mt-0.5 block"><b class="font-medium">{bySlug['olist'].duration}</b> · {bySlug['olist'].beginMonth}/{bySlug['olist'].beginYear} - {bySlug['olist'].isCurrent ? 'Present' : `${bySlug['olist'].endMonth}/${bySlug['olist'].endYear}`}</span>
-          </span>
-        </span>
-        <span
-          class="underline decoration-[3px] decoration-dotted [text-underline-position:under] decoration-[#79F] anchor-name-[--bxblue] cursor-pointer py-1.5 hover:text-stone-300"
-          aria-describedby="tt-bxblue"
-        >
-          💰
-        </span>
-        <span
-          id="tt-bxblue"
-          popover
-          class="absolute anchor-[--bxblue] anchor-area-[top_center] anchor-try-[bottom_center,top_start,top_end] anchor-visibility-[anchors-visible] mt-2 z-20 opacity-0 translate-y-1 scale-95 pointer-events-none transition-all duration-200 ease-out open:opacity-100 open:translate-y-0 open:scale-100 open:pointer-events-auto"
-          role="tooltip"
-        >
-          <span class="rounded-lg border border-stone-700/60 bg-stone-900/95 backdrop-blur px-3 py-2 shadow-xl text-stone-200 text-[11px] max-w-[70ch] block">
-            <span class="flex items-center gap-1.5 font-medium text-xs text-stone-300">
-              <span class="[&>svg]:inline leading-none" set:html={bySlug['bxblue'].companyIcon} />
-              <span>{bySlug['bxblue'].title}</span>
-              <span class="text-stone-400">@</span>
-              <a href={bySlug['bxblue'].companyURL}><span>{bySlug['bxblue'].company}</span></a>
-            </span>
-            <span class="text-stone-400 text-[10px] mt-0.5 block"><b class="font-medium">{bySlug['bxblue'].duration}</b> · {bySlug['bxblue'].beginMonth}/{bySlug['bxblue'].beginYear} - {bySlug['bxblue'].isCurrent ? 'Present' : `${bySlug['bxblue'].endMonth}/${bySlug['bxblue'].endYear}`}</span>
-          </span>
-        </span>
-      </span>
-      I am now
-      <span
-        class="underline decoration-[3px] decoration-dotted [text-underline-position:from-font] decoration-[#7300E5] anchor-name-[--external-secrets] cursor-pointer py-1.5 hover:text-stone-300"
-        aria-describedby="tt-external-secrets"
+        Being a Design Engineer <span class="text-stone-400 text-xs">(FKA: UX Engineer, Creative Technologist, UI Developer... 🪦)</span> I'm hopping between these roles whenever duty calls 🦘 I'll code features with solid design heriustics from the get go 💪 observe and talk to users to grasp their true needs 🗣️ and design UI with pixel perfection 🎨
+      </AnchoredCard>
+
+      <AnchoredCard
+        name="labhacker"
+        label="I facilitated rapid experimentation in gov tech 🏛️"
+        triggerClass="bg-[oklch(0.55_0_0/0.2)] outline-[oklch(0.55_0_0)] [&+[data-role-tooltip]]:shadow-[0_0_400px_0_oklch(0.8_0_0)]"
       >
-        spearheading a seamless secrets management experience for big infrastructure teams
-      </span>
-      🤫
-      <span
-        id="tt-external-secrets"
-        popover
-        class="absolute anchor-[--external-secrets] anchor-area-[top_center] anchor-try-[bottom_center,top_start,top_end] anchor-visibility-[anchors-visible] mt-2 z-20 opacity-0 translate-y-1 scale-95 pointer-events-none transition-all duration-200 ease-out open:opacity-100 open:translate-y-0 open:scale-100 open:pointer-events-auto"
-        role="tooltip"
+        <RoleSummary card={bySlug["labhacker"]} />
+      </AnchoredCard>
+
+      <AnchoredCard
+        name="buser"
+        triggerClass="bg-[oklch(0.62_0.26_4/0.2)] outline-[oklch(0.62_0.26_4)] [&+[data-role-tooltip]]:shadow-[0_0_400px_0_oklch(0.62_0.25_4.01)]"
+        label="revved up conversion and SEO for bus travel access 🚌"
       >
-        <span class="rounded-lg border border-stone-700/60 bg-stone-900/95 backdrop-blur px-3 py-2 shadow-xl text-stone-200 text-[11px] max-w-[70ch] block">
-          <span class="flex items-center gap-1.5 font-medium text-xs text-stone-300">
-            <span class="[&>svg]:inline leading-none" set:html={bySlug['external-secrets'].companyIcon} />
-            <span>{bySlug['external-secrets'].title}</span>
-            <span class="text-stone-400">@</span>
-            <a href={bySlug['external-secrets'].companyURL}><span>{bySlug['external-secrets'].company}</span></a>
-          </span>
-          <span class="text-stone-400 text-[10px] mt-0.5 block"><b class="font-medium">{bySlug['external-secrets'].duration}</b> · {bySlug['external-secrets'].beginMonth}/{bySlug['external-secrets'].beginYear} - {bySlug['external-secrets'].isCurrent ? 'Present' : `${bySlug['external-secrets'].endMonth}/${bySlug['external-secrets'].endYear}`}</span>
-          {(bySlug['external-secrets'].stack?.length > 0 || bySlug['external-secrets'].design?.length > 0) && (
-            <span class="mt-1 text-[11px] text-stone-300 block">
-              {bySlug['external-secrets'].stack?.length > 0 && (
-                <>
-                  <strong>{bySlug['external-secrets'].stack[0]}</strong>{bySlug['external-secrets'].stack.slice(1).length > 0 && `, ${bySlug['external-secrets'].stack.slice(1).join(', ')}`}
-                </>
-              )}
-              {bySlug['external-secrets'].design?.length > 0 && ` — ${bySlug['external-secrets'].design.join(', ')}`}
-            </span>
-          )}
-        </span>
-      </span>
+        <RoleSummary card={bySlug["buser"]} />
+      </AnchoredCard>
+
+      <AnchoredCard
+        name="zazos"
+        triggerClass="bg-[oklch(0.75_0.18_51/0.2)] outline-[oklch(0.75_0.18_51)] [&+[data-role-tooltip]]:shadow-[0_0_400px_0_oklch(0.75_0.16_51.09)]"
+        label="refined how HR teams low‑code their workflows ⚡"
+      >
+        <RoleSummary card={bySlug["zazos"]} />
+      </AnchoredCard>
+      <span data-role-label class="transition-all duration-300 ease-in-out">and a handful more</span>
+      <AnchoredCard
+        name="cjr"
+        triggerClass="bg-[oklch(0.82_0.20_254/0.2)] outline-[oklch(0.82_0.20_254)] [&+[data-role-tooltip]]:shadow-[0_0_400px_0_oklch(0.62_0.2_254.15)]"
+        label="💻"
+      >
+        <RoleSummary card={bySlug["cjr"]} />
+      </AnchoredCard>
+      <AnchoredCard
+        name="interlegis"
+        triggerClass="bg-[oklch(0.67_0.22_153/0.2)] outline-[oklch(0.67_0.22_153)] [&+[data-role-tooltip]]:shadow-[0_0_400px_0_oklch(0.62_0.16_152.73)]"
+        label="⚖️"
+      >
+        <RoleSummary card={bySlug["interlegis"]} />
+      </AnchoredCard>
+      <AnchoredCard
+        name="olist"
+        triggerClass="bg-[oklch(0.65_0.36_265/0.2)] outline-[oklch(0.65_0.36_265)] [&+[data-role-tooltip]]:shadow-[0_0_400px_0_oklch(0.42_0.25_265.22)]"
+        label="🛍️"
+      >
+        <RoleSummary card={bySlug["olist"]} />
+      </AnchoredCard>
+      <AnchoredCard
+        name="bxblue"
+        triggerClass="bg-[oklch(0.85_0.25_268.37/0.2)] outline-[oklch(0.85_0.25_268.37)] [&+[data-role-tooltip]]:shadow-[0_0_400px_0_oklch(0.7_0.15_268.37)]"
+        label="💰"
+      >
+        <RoleSummary card={bySlug["bxblue"]} />
+      </AnchoredCard>
+      <AnchoredCard
+        name="external-secrets"
+        triggerClass="bg-[oklch(0.55_0.28_293.11/0.2)] outline-[oklch(0.55_0.28_293.11)] [&+[data-role-tooltip]]:shadow-[0_0_400px_0_oklch(0.54_0.25_293.11)]"
+        label="I'm now making your secrets easy to rotate 🔄 (seriously, rotate your secrets)"
+      >
+        <RoleSummary card={bySlug["external-secrets"]} />
+      </AnchoredCard>
     </p>
   </main>
- </Layout>
+</Layout>
 
- <script>
-   document.addEventListener('astro:page-load', () => {
-     const triggers = document.querySelectorAll('[aria-describedby]');
-     triggers.forEach((el) => {
-       const id = el.getAttribute('aria-describedby');
-       const tip = id ? document.getElementById(id) : null;
-       if (!tip || !('showPopover' in tip)) return;
-       let over = false, overTip = false;
-       const open = () => { try { tip.showPopover(); } catch {}
-         tip.classList.add('open'); };
-       const close = () => { if (!over && !overTip) { try { tip.hidePopover(); } catch {}
-         tip.classList.remove('open'); } };
-       el.addEventListener('mouseenter', () => { over = true; open(); });
-       el.addEventListener('mouseleave', () => { over = false; setTimeout(close, 50); });
-       el.addEventListener('focus', () => { over = true; open(); });
-       el.addEventListener('blur', () => { over = false; setTimeout(close, 50); });
-       tip.addEventListener('mouseenter', () => { overTip = true; });
-       tip.addEventListener('mouseleave', () => { overTip = false; setTimeout(close, 50); });
-     });
-   });
- </script>
+<script type="module">
+  const pointer = document.querySelector("[data-role-pointer]");
+  if (pointer) {
+    let targetX = 0;
+    let targetY = 0;
+    let currentX = 0;
+    let currentY = 0;
+    let speed = 0.05;
 
-<!-- background-color: transparent;
-opacity: 0.7;
-background-size: 8px 8px;
-background-image: repeating-linear-gradient(45deg,#44403C 0, #44403C 0.8px, transparent 0, transparent 50%);
+    function animate() {
+      let distX = targetX - currentX;
+      let distY = targetY - currentY;
 
-bg-t -->
+      currentX = currentX + (distX * speed);
+      currentY = currentY + (distY * speed);
+
+      pointer.style.setProperty("--mouse-x", Math.round(currentX));
+      pointer.style.setProperty("--mouse-y", Math.round(currentY));
+
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    document.addEventListener("mousemove", (event) => {
+      targetX = Math.round(event.clientX);
+      targetY = Math.round(event.clientY);
+    });
+  }
+</script>

@@ -65,7 +65,7 @@ const endYear = `${endDate.getFullYear()}`;
 
 <section class:list={[hidden && "hidden"]} class="flex flex-col gap-2">
   <div class="flex justify-between items-center">
-    <span class="flex items-center gap-1.5 font-medium text-xs text-gray-400">
+    <span class="flex items-center gap-1.5 font-medium text-xs text-stone-400">
       <span class="[&>svg]:inline leading-none" set:html={companyIcon} />
       <h4 class="inline leading-tight flex-initial max-w-none">
         <span class:list={[hiddenFromATS && "[filter:opacity(0.99)]"]}
@@ -74,7 +74,7 @@ const endYear = `${endDate.getFullYear()}`;
 
         <span
           class:list={[
-            "text-gray-300",
+            "text-stone-300",
             hiddenFromATS && "[filter:opacity(0.99)]",
           ]}>@</span
         >
@@ -95,7 +95,7 @@ const endYear = `${endDate.getFullYear()}`;
         }
       </h4>
     </span>
-    <span class="text-gray-400 text-[10px]"><b class="[filter:opacity(0.99)] font-medium">{duration}</b> <span class="[filter:opacity(0.99)]">|</span> {beginMonth}/{beginYear} - {isCurrent ? <b class="font-medium">Present</b> : `${endMonth}/${endYear}`}</span>
+    <span class="text-stone-400 text-[10px]"><b class="[filter:opacity(0.99)] font-medium">{duration}</b> <span class="[filter:opacity(0.99)]">|</span> {beginMonth}/{beginYear} - {isCurrent ? <b class="font-medium">Present</b> : `${endMonth}/${endYear}`}</span>
   </div>
 
   {
@@ -121,7 +121,7 @@ const endYear = `${endDate.getFullYear()}`;
         >
           <path stroke="#8F8F91" stroke-linecap="round" stroke-linejoin="round" d="m0 6.5 5.333 2.666 5.334-2.667M0 9.166l5.333 2.667 5.334-2.667m-5.334-8L0 3.833l5.333 2.666 5.334-2.666-5.334-2.667Z"/>
         </svg>
-        <p class="text-gray-900 text-[10px] max-w-none">
+        <p class="text-stone-900 text-[10px] max-w-none">
           {stack && stack.length > 0 && (
             <>
               <strong>{stack[0]}</strong>{stack.slice(1).length > 0 && `, ${stack.slice(1).join(", ")}`}

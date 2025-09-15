@@ -1,0 +1,46 @@
+---
+interface Props {
+  card: {
+    title: string;
+    company: string;
+    companyURL: string;
+    companyIcon: string;
+    duration: string;
+    beginMonth: string;
+    beginYear: string;
+    endMonth: string;
+    endYear: string;
+    isCurrent: boolean;
+    stack?: string[];
+    design?: string[];
+    info?: string;
+  };
+}
+
+const { card } = Astro.props as Props;
+---
+
+<span class="inline-felx items-center gap-1">
+  <span>{card.title}</span>
+  <span class="text-stone-400">@</span>
+  <span>{card.company}</span>
+  <span class="leading-none [&>svg]:inline" set:html={card.companyIcon} />{" "}
+  {card.info && <span class="text-[11px] text-stone-700"> ({card.info})</span>}
+</span>
+<span class="mt-0.5 block text-[11px] font-normal text-stone-700">
+  {card.duration} · {card.beginMonth}/{card.beginYear} -{" "}
+  {card.isCurrent ? "Present" : `${card.endMonth}/${card.endYear}`}
+</span>
+{
+  (card.stack?.length || card.design?.length) && (
+    <span class="mt-1 block text-xs text-stone-900">
+      {card.stack?.length ? (
+        <>
+          <strong>{card.stack[0]}</strong>{card.stack.slice(1).length > 0 &&
+            `, ${card.stack.slice(1).join(", ")}`}
+        </>
+      ) : null}
+      {card.design?.length ? ` — ${card.design.join(", ")}` : null}
+    </span>
+  )
+}

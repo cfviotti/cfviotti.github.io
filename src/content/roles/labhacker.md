@@ -10,7 +10,7 @@ companyIcon:
     <path fill="#000" d="M5.714 4.646h4.572V.074H5.714v4.572ZM8 16.36c6.857 0 8-4.858 8-4.858H0s1.143 4.857 8 4.857Zm8-6h-4.572V5.79H16v4.57Z"/>
   </svg>
 stack:
-  - "ES5+"
+  - "Javascript"
   - "jQuery"
   - "SCSS"
   - "RSCSS"

@@ -24,8 +24,11 @@ design:
   - "Figma"
   - "Miro"
 ---
-
-- **Built and led the Front-End architecture from scratch**, with full tech stack autonomy, establishing optimal UX standards from day one and delivering an MVP for lead generation in **4 weeks**
-- **Designed and implemented an enterprise secrets management dashboard** with audit analytics, automated reporting, and secret lifecycle visualization across **30+** key vault provider integrations
-<!-- - **Designed and Implemented a dynamic schema-based nested form system** to automatically render complex CRDs as forms that upon submitted, yields back valid YAML manifests for K8s resources -->
-- **Enhanced DevX** by including Storybook components documentation, in-house feature flag system, and mock API infrastructure that quickened prototyping and reduced PR review cycles
+- **Built a secret location‑aware findings workflow for reused secrets** across systems, stores, and consumers, with one‑click bulk rotation, modeled to cut secret discovery/rotation time by **99.99%**
+- **Led the Front-End architecture from scratch**, with full tech stack autonomy, establishing optimal UX standards from day one and delivering an MVP for lead generation in **4 weeks**
+- **Designed and implemented an enterprise secrets management dashboard** with audit analytics, automated reporting, and secret lifecycle visualization across **30+** vault provider integrations
+- **Built universal K8s recursive form system** for **12+** resource types, **15+** field types, cutting custom form development by **80%**, enabling users to create complex manifests without YAML knowledge
+<!-- - **Extended the recursive K8s form system with a lazy‑loaded renderer registry** for domain‑specific fields, cutting initial bundle size and decoupling domain UI from core form logic -->
+<!-- - **Consolidated API access** into **100+** typed React Query hooks with shared patterns (keys/caching/retries), increasing predictability and maintainability across pages and workflows -->
+<!-- - **Authored an accessible Select component (single/multi)** with dynamic badge count and full rendering customization, unifying field selection UX while improving input clarity at scale -->
+- **Enhanced DevX** with Storybook core primitives coverage, an in-house feature flag system, and a mock API infrastructure, accelerating prototyping and shortening PR review cycles

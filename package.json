@@ -8,19 +8,24 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "type-check": "astro check"
+    "type-check": "astro check",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
     "@fontsource/inter": "^5.0.18",
     "astro": "^5.0.0",
+    "astro-compress": "^2.3.8",
     "puppeteer": "^22.12.0",
     "sass": "^1.77.6",
     "typescript": "^5.9.2"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.13",
-    "@toolwind/anchors": "1.0.10",
+    "prettier": "^3.6.2",
+    "prettier-plugin-astro": "^0.14.1",
+    "prettier-plugin-tailwindcss": "^0.6.14",
     "tailwindcss": "^4.1.13"
   }
 }

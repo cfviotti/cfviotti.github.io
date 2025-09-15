@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@plugin "@toolwind/anchors";
 
 @layer base {
   html {
@@ -7,7 +6,7 @@
     font-family: 'Inter', system-ui, sans-serif;
   }
   body {
-    @apply text-zinc-100 bg-stone-950 min-h-[100dvh];
+    @apply text-zinc-100 bg-stone-950 min-h-[100dvh] overflow-x-hidden;
   }
   a {
     @apply underline decoration-sky-500/55 decoration-2;
