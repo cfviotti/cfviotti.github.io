@@ -73,7 +73,7 @@ const bySlug = Object.fromEntries(hoverRoles.map((r) => [r.slug, r]));
 
 <Layout>
   <div
-    class="fixed w-0 h-0 [anchor-name:--pointer] top-0 left-0 [transform:translate(calc(var(--mouse-x)*1px),calc(var(--mouse-y)*1px))]"
+    class="fixed w-0 h-0 [anchor-name:--pointer] [left:calc(var(--mouse-x)*1px)] [top:calc(var(--mouse-y)*1px)]"
     data-role-pointer
   />
   <main
@@ -217,9 +217,11 @@ const bySlug = Object.fromEntries(hoverRoles.map((r) => [r.slug, r]));
     }
     animate();
 
-    document.addEventListener("mousemove", (event) => {
-      targetX = Math.round(event.clientX);
-      targetY = Math.round(event.clientY);
-    });
+    const update = (x, y) => {
+      targetX = Math.round(x);
+      targetY = Math.round(y);
+    };
+    document.addEventListener("pointermove", (event) => update(event.clientX, event.clientY));
+    document.addEventListener("mousemove", (event) => update(event.clientX, event.clientY));
   }
 </script>
