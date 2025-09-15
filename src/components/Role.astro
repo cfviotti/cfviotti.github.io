@@ -56,10 +56,10 @@ if (totalMonths > 0) {
   duration += `${totalMonths}M`;
 }
 
-const beginMonth = String(beginDate.getMonth() + 2).padStart(2, "0");
+const beginMonth = String(beginDate.getMonth() + 1).padStart(2, "0");
 const beginYear = `${beginDate.getFullYear()}`;
 
-const endMonth = String(endDate.getMonth() + 2).padStart(2, "0");
+const endMonth = String(endDate.getMonth() + 1).padStart(2, "0");
 const endYear = `${endDate.getFullYear()}`;
 ---
 
