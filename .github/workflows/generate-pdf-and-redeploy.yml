@@ -3,6 +3,7 @@ name: Generate PDF and Commit
 on:
   repository_dispatch:
     types: [generate-pdf]
+  workflow_dispatch:
 
 jobs:
   generate-cv-pdf:
