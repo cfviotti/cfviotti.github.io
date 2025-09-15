@@ -1,5 +1,5 @@
 ---
-supressed: true
+suppressed: true
 title: "Part-time Web Development Intern"
 begin: 2013-12-01
 end: 2015-12-01
@@ -11,5 +11,18 @@ companyIcon:
     <path fill="#05A255" d="M3.067 8.836h-2c0 5.731.994 8.384 2.2 8.4 1.544 0 3.812.002 4.8 0-1.28 0-1.6-.067-2.972-1.819-.965-1.366-1.702-3.53-2.028-6.58Z"/>
     <circle cx="2.2" cy="5.436" r="2.2" fill="#F4B708"/>
   </svg>
+stack:
+  - "Javascript"
+  - "jQuery"
+  - "HTML"
+  - "CSS"
+  - "Zurb Foundation"
+  - "Django"
+  - "Plone"
+  - "Git"
+design:
+  - "Gimp"
+  - "Inkscape"
 hiddenFromATS: true
+hidden: true
 ---

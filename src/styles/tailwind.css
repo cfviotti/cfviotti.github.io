@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+@layer base {
+  html {
+    color-scheme: dark;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  body {
+    @apply text-zinc-100 bg-stone-950 min-h-[100dvh] overflow-x-hidden;
+  }
+  a {
+    @apply underline decoration-sky-500/55 decoration-2;
+  }
+}
+
+@property --gradient-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes gradient-spin {
+  from { --gradient-angle: 0deg; }
+  to { --gradient-angle: 360deg; }
+}

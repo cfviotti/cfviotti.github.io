@@ -1,4 +1,5 @@
 ---
+suppressed: true
 title: "Front-End Developer"
 begin: 2019-12-01
 end: 2020-03-01

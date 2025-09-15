@@ -7,53 +7,65 @@ Tech/Agile:
     - Vue
     - Nuxt
     - Vuex
-    - JSON
     - StoryBook
-    - Technical documentation
     - CSS
     - SCSS
-    - PostCSS
-    - BEM
-    - CSS-in-JS
-    - Styled Components
+    - Tailwind
+    - shadcn/ui
     - HTML
     - Template engines
+    - JSON
+    - RESTful
+    - API Integration
+    - Technical documentation
     - Code reviewing
     - Bash
     - scripting
     - Linux
-    - MacOs
+    - macOS
+    - WSL
     - Scrum
     - Kanban
-    - Confluence
-    - Trello
-    - Jira
+    - Linear
     - ClickUp
+    - Confluence
+    - Jira
+    - Trello
   Intermediate:
+    - React
+    - TypeScript
+    - Astro
+    - Zod
+    - Tanstack Query
+    - Tanstack Table
     - Unit testing
-    - Jest
-    - Cypress
+    - Vitest
     - Testing-Library
+    - Cypress
+    - Jest
+    - MSWjs
+    - Docker
     - Web accessibility
     - WAI-ARIA
     - Build tools
+    - Vite
     - Webpack
-    - API Integration
     - A/B Testing
+    - Feature flags
     - SEO
     - jQuery
   Familiar:
-    - React
-    - Astro
-    - Vite
-    - Tailwind
-    - Enzyme
     - Web performance
     - Profiling
+    - Next.js
     - Python
     - Django
     - Ruby on Rails
+    - Golang
     - Backend Development
+    - DevOps
+    - CI/CD
+    - Kubernetes
 UI/UX:
   Proficient:
     - UI Design
@@ -67,7 +79,7 @@ UI/UX:
     - FigJam
     - Miro
     - Whimsical
-    - Invision
+    - Excalidraw
   Intermediate:
     - Micro-copy
     - UX writing
@@ -81,9 +93,8 @@ UI/UX:
     - Graphic design
 Soft skills:
   - Growth-mindset
-  - Passionate
   - Product-driven
   - Detail-oriented
-  - Remote-first best practices
+  - Remote-first
   - Async & sync clear communication
 ---

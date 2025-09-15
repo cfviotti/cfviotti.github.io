@@ -7,15 +7,25 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "type-check": "astro check",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
-    "@astrojs/tailwind": "^5.1.0",
+    "@astrojs/check": "^0.9.4",
     "@fontsource/inter": "^5.0.18",
-    "astro": "^4.10.3",
-    "open-props": "^1.7.4",
+    "astro": "^5.0.0",
+    "astro-compress": "^2.3.8",
     "puppeteer": "^22.12.0",
     "sass": "^1.77.6",
-    "tailwindcss": "^3.4.9"
+    "typescript": "^5.9.2"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.13",
+    "prettier": "^3.6.2",
+    "prettier-plugin-astro": "^0.14.1",
+    "prettier-plugin-tailwindcss": "^0.6.14",
+    "tailwindcss": "^4.1.13"
   }
 }
