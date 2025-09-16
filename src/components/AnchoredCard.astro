@@ -5,64 +5,30 @@ interface Props {
   triggerClass?: string;
 }
 
-const { name, label, triggerClass = "" } = Astro.props as Props;
+const { name, label, triggerClass = '' } = Astro.props as Props;
 const id = `tt-${name}`;
 ---
 
 <span
-  class="group/role min-w-fit py-1.5 hover:text-stone-300 transition-opacity duration-300 ease-in-out"
+  class='group/role min-w-fit py-1.5 transition-opacity duration-300 ease-in-out hover:text-stone-300'
   data-role-trigger
 >
   <span
     class={`rounded-md box-decoration-clone px-1.5 transition-opacity duration-300 ease peer/role ${triggerClass}`}
     aria-describedby={id}
-    tabindex="0"
+    tabindex='0'
     data-role-label
     style={`anchor-name: --role-${name}`}>{label}</span
   >
   <span
     id={id}
-    role="tooltip"
+    role='tooltip'
     data-role-tooltip
-    class="
-      rounded-lg border border-stone-700/50
-      overflow-clip
-      [position-area:top_center]
-      group-hover/role:[position-area:top_center]
-      peer-focus-visible/role:[position-area:bottom_center]
-      [@media(pointer:coarse)]:group-focus-within/main-text:[position-area:top_center]
-      transition-all duration-300 ease-in-out
-      pointer-events-none select-none invisible absolute z-50 -translate-y-8 scale-85 opacity-0
-      [@media(pointer:coarse)]:fixed [@media(pointer:coarse)]:-bottom-6 [@media(pointer:coarse)]:left-1/2 [@media(pointer:coarse)]:-translate-x-1/2
-      [position-anchor:--pointer]
-      group-focus-within/main-text:[position-anchor:var(--anchor)]
-      [@media(pointer:fine)]:group-focus-within/main-text:[position-anchor:--pointer]
-      group-hover/role:visible
-      group-hover/role:!-translate-y-8
-      group-hover/role:scale-100
-      group-hover/role:opacity-100
-      group-hover/role:[position-anchor:--pointer]
-      [@media(pointer:coarse)]:peer-focus/role:visible
-      [@media(pointer:coarse)]:peer-focus/role:scale-100
-      [@media(pointer:coarse)]:peer-focus/role:opacity-100
-      peer-focus-visible/role:visible
-      peer-focus-visible/role:translate-y-1
-      peer-focus-visible/role:scale-100
-      peer-focus-visible/role:opacity-100
-      peer-focus-visible/role:![position-anchor:var(--anchor)]
-      [@media(pointer:coarse)]:![position-anchor:auto]
-      [@media(pointer:fine)]:supports-[not(top:anchor(top))]:top-[min(100%,100dvh_-_220px)]
-      [@media(pointer:fine)]:supports-[not(top:anchor(top))]:left-1/2
-      [@media(pointer:fine)]:supports-[not(top:anchor(top))]:origin-left
-      [@media(pointer:fine)]:supports-[not(top:anchor(top))]:transform-[translate(-50%,3rem)]
-    "
+    class='pointer-events-none invisible absolute z-50 -translate-y-8 scale-85 overflow-clip rounded-lg border border-stone-700/50 opacity-0 transition-all duration-300 ease-in-out select-none [position-anchor:--pointer] [position-area:top_center] group-focus-within/main-text:[position-anchor:var(--anchor)] group-hover/role:visible group-hover/role:!-translate-y-8 group-hover/role:scale-100 group-hover/role:opacity-100 group-hover/role:[position-anchor:--pointer] group-hover/role:[position-area:top_center] peer-focus-visible/role:visible peer-focus-visible/role:translate-y-1 peer-focus-visible/role:scale-100 peer-focus-visible/role:opacity-100 peer-focus-visible/role:![position-anchor:var(--anchor)] peer-focus-visible/role:[position-area:bottom_center] [@media(pointer:coarse)]:fixed [@media(pointer:coarse)]:-bottom-6 [@media(pointer:coarse)]:left-1/2 [@media(pointer:coarse)]:-translate-x-1/2 [@media(pointer:coarse)]:![position-anchor:auto] [@media(pointer:coarse)]:group-focus-within/main-text:[position-area:top_center] [@media(pointer:coarse)]:peer-focus/role:visible [@media(pointer:coarse)]:peer-focus/role:scale-100 [@media(pointer:coarse)]:peer-focus/role:opacity-100 [@media(pointer:fine)]:group-focus-within/main-text:[position-anchor:--pointer] [@media(pointer:fine)]:supports-[not(top:anchor(top))]:top-[min(100%,100dvh_-_220px)] [@media(pointer:fine)]:supports-[not(top:anchor(top))]:left-1/2 [@media(pointer:fine)]:supports-[not(top:anchor(top))]:origin-left [@media(pointer:fine)]:supports-[not(top:anchor(top))]:transform-[translate(-50%,3rem)]'
     style=`--anchor: --role-${name}`
   >
-    <span
-      class="block max-w-[min(100dvw-16px,430px)]"
-      style="width:max-content"
-    >
-      <span class="block bg-stone-100 px-4 py-3 backdrop-blur text-sm font-medium text-stone-900">
+    <span class='block max-w-[min(100dvw-16px,450px)]' style='width:max-content'>
+      <span class='block bg-stone-100 px-3.5 py-3 text-sm font-medium text-stone-900 backdrop-blur'>
         <slot />
       </span>
     </span>

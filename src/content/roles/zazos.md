@@ -1,28 +1,27 @@
 ---
-title: "Founding Design Engineer"
+title: 'Founding Design Engineer'
 begin: 2023-03-01
 end: 2024-06-01
-location: "Remote"
-company: "Zazos"
-companyURL: "https://www.crunchbase.com/organization/zazos"
-companyIcon:
-  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16">
-    <path fill="#FD8C41" fill-rule="evenodd" d="M0 .408h3.934l4.525 6.299c.123.172.22.378.29.618.072.24.107.494.107.762 0 .278-.037.54-.11.784a1.997 1.997 0 0 1-.306.625l-4.47 6.098H0l5.504-7.507L0 .408Zm7.144 0h3.934l4.525 6.299c.123.172.22.378.29.618.072.24.107.494.107.762 0 .278-.037.54-.11.784a1.997 1.997 0 0 1-.306.625l-4.47 6.098h-3.97l5.504-7.507L7.144.408Z" clip-rule="evenodd"/>
+location: 'Remote'
+company: 'Zazos'
+companyURL: 'https://www.crunchbase.com/organization/zazos'
+companyIcon: <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16">
+  <path fill="#FD8C41" fill-rule="evenodd" d="M0 .408h3.934l4.525 6.299c.123.172.22.378.29.618.072.24.107.494.107.762 0 .278-.037.54-.11.784a1.997 1.997 0 0 1-.306.625l-4.47 6.098H0l5.504-7.507L0 .408Zm7.144 0h3.934l4.525 6.299c.123.172.22.378.29.618.072.24.107.494.107.762 0 .278-.037.54-.11.784a1.997 1.997 0 0 1-.306.625l-4.47 6.098h-3.97l5.504-7.507L7.144.408Z" clip-rule="evenodd"/>
   </svg>
-info: "Y Combinator S21"
-infoURL: "https://www.ycombinator.com/companies?batch=S21&query=Zazos"
+info: 'Y Combinator S21'
+infoURL: 'https://www.ycombinator.com/companies?batch=S21&query=Zazos'
 stack:
-  - "Vue"
-  - "Nuxt"
-  - "Vuex"
-  - "StoryBook"
-  - "Jest"
-  - "Cypress"
-  - "SCSS"
-  - "Rails"
+  - 'Vue'
+  - 'Nuxt'
+  - 'Vuex'
+  - 'StoryBook'
+  - 'Jest'
+  - 'Cypress'
+  - 'SCSS'
+  - 'Rails'
 design:
-  - "Figma"
-  - "Whimsical"
+  - 'Figma'
+  - 'Whimsical'
 ---
 
 - **⁠Managed and developed the company's Design System from scratch**, creating **20** tailored components for optimal DevX/UX with Vue + StoryBook, cutting **70%** of legacy UI lib code

@@ -1,23 +1,14 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import { getCollection } from "astro:content";
-import AnchoredCard from "../components/AnchoredCard.astro";
-import RoleSummary from "../components/RoleSummary.astro";
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import AnchoredCard from '../components/AnchoredCard.astro';
+import RoleSummary from '../components/RoleSummary.astro';
 
-const roles = await getCollection("roles");
-const targetSlugs = [
-  "labhacker",
-  "buser",
-  "zazos",
-  "cjr",
-  "interlegis",
-  "olist",
-  "bxblue",
-  "external-secrets",
-];
+const roles = await getCollection('roles');
+const targetSlugs = ['labhacker', 'buser', 'zazos', 'cjr', 'interlegis', 'olist', 'bxblue', 'external-secrets'];
 const hoverRoles = roles
-  .map((r) => {
-    const base = (r.id.split("/").pop() || r.id).replace(/\.md$/, "");
+  .map(r => {
+    const base = (r.id.split('/').pop() || r.id).replace(/\.md$/, '');
     return { entry: r, slug: base };
   })
   .filter(({ slug }) => targetSlugs.includes(slug))
@@ -34,7 +25,7 @@ const hoverRoles = roles
     stack: entry.data.stack ?? [],
     design: entry.data.design ?? [],
   }))
-  .map((r) => {
+  .map(r => {
     const beginDate = new Date(r.begin);
     const endDateCandidate = new Date(r.end);
     const now = new Date();
@@ -47,14 +38,14 @@ const hoverRoles = roles
       years -= 1;
       months += 12;
     }
-    let duration = "";
+    let duration = '';
     if (years > 0) duration += `${years}Y`;
-    if (months > 0) duration += `${duration ? " " : ""}${months}M`;
-    if (!duration) duration = "0M";
+    if (months > 0) duration += `${duration ? ' ' : ''}${months}M`;
+    if (!duration) duration = '0M';
 
-    const beginMonth = String(beginDate.getMonth() + 1).padStart(2, "0");
+    const beginMonth = String(beginDate.getMonth() + 1).padStart(2, '0');
     const beginYear = `${beginDate.getFullYear()}`;
-    const endMonth = String(endDateCandidate.getMonth() + 1).padStart(2, "0");
+    const endMonth = String(endDateCandidate.getMonth() + 1).padStart(2, '0');
     const endYear = `${endDateCandidate.getFullYear()}`;
 
     return {
@@ -68,133 +59,132 @@ const hoverRoles = roles
     };
   });
 
-const bySlug = Object.fromEntries(hoverRoles.map((r) => [r.slug, r]));
+const bySlug = Object.fromEntries(hoverRoles.map(r => [r.slug, r]));
 ---
 
 <Layout>
   <div
-    class="fixed w-0 h-0 [anchor-name:--pointer] [left:calc(var(--mouse-x)*1px)] [top:calc(var(--mouse-y)*1px)]"
+    class='fixed [top:calc(var(--mouse-y)*1px)] [left:calc(var(--mouse-x)*1px)] h-0 w-0 [anchor-name:--pointer]'
     data-role-pointer
-  />
-  <main
-    class="flex-1 flex-col gap-14 flex items-center justify-center max-w-screen-lg mx-auto"
   >
+  </div>
+  <main class='mx-auto flex max-w-screen-lg flex-1 flex-col items-center justify-center gap-14'>
     <p
-      class="
-        group/main-text text-2xl leading-normal font-extralight text-stone-300
-        supports-[not(position-anchor:auto)]:relative
-        md:text-3xl
-        [&:has([data-role-label]:is(:hover,:focus-visible))_[data-role-label]:not(:is(:hover,:focus-visible))]:opacity-30
-      "
+      class='group/main-text text-[1.35rem] leading-normal font-extralight text-stone-300 supports-[not(position-anchor:auto)]:relative sm:text-3xl [&:has([data-role-label]:is(:hover,:focus-visible))_[data-role-label]:not(:is(:hover,:focus-visible))]:opacity-30'
     >
-      <AnchoredCard
-        name="olar"
-        label="Olá 👋"
-        triggerClass="bg-[oklch(0.80_0_0/0.2)] outline-[oklch(0.80_0_0)]"
-      >
-        How we say <span class="italic">"hello"</span> back home 🖖
+      <AnchoredCard name='olar' label='Olá 👋' triggerClass='bg-[oklch(0.80_0_0/0.2)] outline-[oklch(0.80_0_0)]'>
+        How we say <span class='italic'>"hello"</span> back home 🖖
       </AnchoredCard>
       <AnchoredCard
-        name="thats-me"
+        name='thats-me'
         label="I'm Caio 🇧🇷 🇪🇺"
-        triggerClass="bg-[oklch(0.80_0_0/0.2)] outline-[oklch(0.80_0_0)]"
+        triggerClass='bg-[oklch(0.80_0_0/0.2)] outline-[oklch(0.80_0_0)]'
       >
-        Italo‑Brazilian based in Brazil 🤌⚽ I neither love soccer nor speak Italian 🤷‍♂️ but eating pizza and having a caipirinha are another story 🍕🍹
+        Italo‑Brazilian based in Brazil 🤌⚽ I neither love soccer nor speak Italian 🤷‍♂️ but eating pizza and having a
+        caipirinha are another story 🍕🍹
       </AnchoredCard>
       <AnchoredCard
-        name="ux-designer"
-        label="I discover what you need 🔍"
-        triggerClass="bg-[oklch(0.80_0_0/0.2)] outline-[oklch(0.80_0_0)]"
+        name='ux-designer'
+        label='I discover what you need 🔍'
+        triggerClass='bg-[oklch(0.80_0_0/0.2)] outline-[oklch(0.80_0_0)]'
       >
-        Product-driven user experiences is what I focus on 🎯 I find the <span class="font-bold italic">right</span> problems to solve through research and observation 👀
+        Product-driven user experiences is what I focus on 🎯 I find the <span class='font-bold italic'>right</span> problems
+        to solve through research and observation 👀
       </AnchoredCard>
       <AnchoredCard
-        name="ui-designer"
-        label="dress pixels sharp 👗"
-        triggerClass="bg-[oklch(0.80_0_0/0.2)] outline-[oklch(0.80_0_0)]"
+        name='ui-designer'
+        label='dress pixels sharp 👗'
+        triggerClass='bg-[oklch(0.80_0_0/0.2)] outline-[oklch(0.80_0_0)]'
       >
-        I design high‑fidelity UI in Figma for complex features ✨ Back in the day I would do low-fidelity too, but nowadays "outsourcing" these to <b>v0</b> is the way to go 🤖
+        I design high‑fidelity UI in Figma for complex features ✨ Back in the day I would do low-fidelity too, but now
+        "outsourcing" these to <b>v0</b> is the way to go 🤖
       </AnchoredCard>
       <AnchoredCard
-        name="fe-engineer"
-        label="and introduce them to prod 🚀"
-        triggerClass="bg-[oklch(0.80_0_0/0.2)] outline-[oklch(0.80_0_0)]"
+        name='fe-engineer'
+        label='and introduce them to prod 🚀'
+        triggerClass='bg-[oklch(0.80_0_0/0.2)] outline-[oklch(0.80_0_0)]'
       >
-        I spend most of my time shipping front‑end code 👨‍💻 and I’m especially excited when I author the UI/UX for what I ship 🎨 I’m also known for CSS wizardry 🧙‍♂️
+        I spend most of my time shipping front‑end code 👨‍💻 and I’m especially excited when I author the UI/UX for what I
+        ship 🎨 I’m also known for CSS wizardry 🧙‍♂️
       </AnchoredCard>
       <AnchoredCard
-        name="design-engineer"
-        label="Not always in that order 🤷‍♂️"
-        triggerClass="bg-[oklch(0.80_0_0/0.2)] outline-[oklch(0.80_0_0)]"
+        name='design-engineer'
+        label='Not always in that order 🤷‍♂️'
+        triggerClass='bg-[oklch(0.80_0_0/0.2)] outline-[oklch(0.80_0_0)]'
       >
-        Being a Design Engineer <span class="text-stone-400 text-xs">(FKA: UX Engineer, Creative Technologist, UI Developer... 🪦)</span> I switch hats as needed 🎩 coding with solid design heuristics from the get‑go 💪 talking to users to learn real needs 🗣️ and designing pixel‑perfect UIs 🎨
-      </AnchoredCard>
-
-      <AnchoredCard
-        name="labhacker"
-        label="I facilitated rapid experimentation in gov tech 🏛️"
-        triggerClass="bg-[oklch(0.55_0_0/0.2)] outline-[oklch(0.55_0_0)] [&+[data-role-tooltip]]:shadow-[0_0_400px_0_oklch(0.8_0_0)]"
-      >
-        <RoleSummary card={bySlug["labhacker"]} />
-      </AnchoredCard>
-
-      <AnchoredCard
-        name="buser"
-        triggerClass="bg-[oklch(0.62_0.26_4/0.2)] outline-[oklch(0.62_0.26_4)] [&+[data-role-tooltip]]:shadow-[0_0_400px_0_oklch(0.62_0.25_4.01)]"
-        label="revved up conversion and SEO for bus travel access 🚌"
-      >
-        <RoleSummary card={bySlug["buser"]} />
+        Being a Design Engineer <span class='text-xs text-stone-400'
+          >(FKA: UX Engineer, Creative Technologist, UI Developer... 🪦)</span
+        > I switch hats as needed 🎩 coding with solid design heuristics from the get‑go 💪 talking to users to learn real
+        needs 🗣️ and designing pixel‑perfect UIs 🎨
       </AnchoredCard>
 
       <AnchoredCard
-        name="zazos"
-        triggerClass="bg-[oklch(0.75_0.18_51/0.2)] outline-[oklch(0.75_0.18_51)] [&+[data-role-tooltip]]:shadow-[0_0_400px_0_oklch(0.75_0.16_51.09)]"
-        label="refined how HR teams low‑code their workflows ⚡"
+        name='labhacker'
+        label='I facilitated rapid experimentation in gov tech 🏛️'
+        triggerClass='bg-[oklch(0.55_0_0/0.2)] outline-[oklch(0.55_0_0)] [&+[data-role-tooltip]]:shadow-[0_0_400px_0_oklch(0.8_0_0)]'
       >
-        <RoleSummary card={bySlug["zazos"]} />
+        <RoleSummary card={bySlug['labhacker']} />
       </AnchoredCard>
-      <span data-role-label class="transition-opacity duration-300 ease-in-out pointer-events-none">and a handful more</span>
+
       <AnchoredCard
-        name="cjr"
-        triggerClass="bg-[oklch(0.82_0.20_254/0.2)] outline-[oklch(0.82_0.20_254)] [&+[data-role-tooltip]]:shadow-[0_0_400px_0_oklch(0.62_0.2_254.15)]"
-        label="💻"
+        name='buser'
+        triggerClass='bg-[oklch(0.62_0.26_4/0.2)] outline-[oklch(0.62_0.26_4)] [&+[data-role-tooltip]]:shadow-[0_0_400px_0_oklch(0.62_0.25_4.01)]'
+        label='revved up conversion and SEO for bus travel access 🚌'
       >
-        <RoleSummary card={bySlug["cjr"]} />
+        <RoleSummary card={bySlug['buser']} />
       </AnchoredCard>
+
       <AnchoredCard
-        name="interlegis"
-        triggerClass="bg-[oklch(0.67_0.22_153/0.2)] outline-[oklch(0.67_0.22_153)] [&+[data-role-tooltip]]:shadow-[0_0_400px_0_oklch(0.62_0.16_152.73)]"
-        label="⚖️"
+        name='zazos'
+        triggerClass='bg-[oklch(0.75_0.18_51/0.2)] outline-[oklch(0.75_0.18_51)] [&+[data-role-tooltip]]:shadow-[0_0_400px_0_oklch(0.75_0.16_51.09)]'
+        label='refined how HR teams low‑code their workflows ⚡'
       >
-        <RoleSummary card={bySlug["interlegis"]} />
+        <RoleSummary card={bySlug['zazos']} />
       </AnchoredCard>
-      <AnchoredCard
-        name="olist"
-        triggerClass="bg-[oklch(0.65_0.36_265/0.2)] outline-[oklch(0.65_0.36_265)] [&+[data-role-tooltip]]:shadow-[0_0_400px_0_oklch(0.42_0.25_265.22)]"
-        label="🛍️"
+      <span data-role-label class='pointer-events-none transition-opacity duration-300 ease-in-out'
+        >and a handful more</span
       >
-        <RoleSummary card={bySlug["olist"]} />
-      </AnchoredCard>
       <AnchoredCard
-        name="bxblue"
-        triggerClass="bg-[oklch(0.85_0.25_268.37/0.2)] outline-[oklch(0.85_0.25_268.37)] [&+[data-role-tooltip]]:shadow-[0_0_400px_0_oklch(0.7_0.15_268.37)]"
-        label="💰"
+        name='cjr'
+        triggerClass='bg-[oklch(0.82_0.20_254/0.2)] outline-[oklch(0.82_0.20_254)] [&+[data-role-tooltip]]:shadow-[0_0_400px_0_oklch(0.62_0.2_254.15)]'
+        label='💻'
       >
-        <RoleSummary card={bySlug["bxblue"]} />
+        <RoleSummary card={bySlug['cjr']} />
       </AnchoredCard>
       <AnchoredCard
-        name="external-secrets"
-        triggerClass="bg-[oklch(0.55_0.28_293.11/0.2)] outline-[oklch(0.55_0.28_293.11)] [&+[data-role-tooltip]]:shadow-[0_0_400px_0_oklch(0.54_0.25_293.11)]"
+        name='interlegis'
+        triggerClass='bg-[oklch(0.67_0.22_153/0.2)] outline-[oklch(0.67_0.22_153)] [&+[data-role-tooltip]]:shadow-[0_0_400px_0_oklch(0.62_0.16_152.73)]'
+        label='⚖️'
+      >
+        <RoleSummary card={bySlug['interlegis']} />
+      </AnchoredCard>
+      <AnchoredCard
+        name='olist'
+        triggerClass='bg-[oklch(0.65_0.36_265/0.2)] outline-[oklch(0.65_0.36_265)] [&+[data-role-tooltip]]:shadow-[0_0_400px_0_oklch(0.42_0.25_265.22)]'
+        label='🛍️'
+      >
+        <RoleSummary card={bySlug['olist']} />
+      </AnchoredCard>
+      <AnchoredCard
+        name='bxblue'
+        triggerClass='bg-[oklch(0.85_0.25_268.37/0.2)] outline-[oklch(0.85_0.25_268.37)] [&+[data-role-tooltip]]:shadow-[0_0_400px_0_oklch(0.7_0.15_268.37)]'
+        label='💰'
+      >
+        <RoleSummary card={bySlug['bxblue']} />
+      </AnchoredCard>
+      <AnchoredCard
+        name='external-secrets'
+        triggerClass='bg-[oklch(0.55_0.28_293.11/0.2)] outline-[oklch(0.55_0.28_293.11)] [&+[data-role-tooltip]]:shadow-[0_0_400px_0_oklch(0.54_0.25_293.11)]'
         label="I'm now making your secrets easy to rotate 🔄 (seriously, rotate your secrets)"
       >
-        <RoleSummary card={bySlug["external-secrets"]} />
+        <RoleSummary card={bySlug['external-secrets']} />
       </AnchoredCard>
     </p>
   </main>
 </Layout>
 
-<script type="module">
-  const pointer = document.querySelector("[data-role-pointer]");
+<script type='module'>
+  const pointer = document.querySelector('[data-role-pointer]');
   if (pointer) {
     let targetX = 0;
     let targetY = 0;
@@ -206,11 +196,11 @@ const bySlug = Object.fromEntries(hoverRoles.map((r) => [r.slug, r]));
       let distX = targetX - currentX;
       let distY = targetY - currentY;
 
-      currentX = currentX + (distX * speed);
-      currentY = currentY + (distY * speed);
+      currentX = currentX + distX * speed;
+      currentY = currentY + distY * speed;
 
-      pointer.style.setProperty("--mouse-x", Math.round(currentX));
-      pointer.style.setProperty("--mouse-y", Math.round(currentY));
+      pointer.style.setProperty('--mouse-x', Math.round(currentX));
+      pointer.style.setProperty('--mouse-y', Math.round(currentY));
 
       requestAnimationFrame(animate);
     }
@@ -220,7 +210,7 @@ const bySlug = Object.fromEntries(hoverRoles.map((r) => [r.slug, r]));
       targetX = Math.round(x);
       targetY = Math.round(y);
     };
-    document.addEventListener("pointermove", (event) => update(event.clientX, event.clientY));
-    document.addEventListener("mousemove", (event) => update(event.clientX, event.clientY));
+    document.addEventListener('pointermove', event => update(event.clientX, event.clientY));
+    document.addEventListener('mousemove', event => update(event.clientX, event.clientY));
   }
 </script>

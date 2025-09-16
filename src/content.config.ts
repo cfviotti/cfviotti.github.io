@@ -2,8 +2,8 @@ import { defineCollection, z } from 'astro:content';
 
 const roleSchema = z.object({
   title: z.string(),
-  begin: z.union([z.string(), z.date()]).transform(val => val instanceof Date ? val : new Date(val)),
-  end: z.union([z.string(), z.date()]).transform(val => val instanceof Date ? val : new Date(val)),
+  begin: z.union([z.string(), z.date()]).transform(val => (val instanceof Date ? val : new Date(val))),
+  end: z.union([z.string(), z.date()]).transform(val => (val instanceof Date ? val : new Date(val))),
   company: z.string(),
   companyURL: z.string(),
   companyIcon: z.string(),
@@ -23,12 +23,7 @@ const roles = defineCollection({
 
 export type RoleData = z.infer<typeof roleSchema>;
 
-const skillsSchema = z.record(
-  z.union([
-    z.array(z.string()),
-    z.record(z.array(z.string()))
-  ])
-);
+const skillsSchema = z.record(z.union([z.array(z.string()), z.record(z.array(z.string()))]));
 
 const summarySections = defineCollection({
   type: 'content',

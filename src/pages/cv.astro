@@ -11,10 +11,10 @@ const aboutMeSection = await getEntry('summary-sections', 'about-me');
 const { Content: AboutMeContent } = await aboutMeSection.render();
 
 const renderedRoles = await Promise.all(
-  roles.map(async (role) => {
+  roles.map(async role => {
     const { Content } = await role.render();
     return { ...role, Content };
-  })
+  }),
 );
 
 renderedRoles.sort((a, b) => {
@@ -22,93 +22,107 @@ renderedRoles.sort((a, b) => {
   const bBegin = new Date(b.data.begin).getTime();
   return bBegin - aBegin;
 });
----
-<Layout title="CV's CV">
-  <div class="grid content-center justify-items-center gap-7 px-16 w-fit mx-auto min-h-[100dvh] print:p-0 print:m-0 print:min-h-[unset] print:[webkit-print-color-adjust:exact] print:[color-adjust:exact] print:[print-color-adjust:exact]">
-    <div class="not-print:[zoom:1.25] relative gap-x-6 rounded-2xl text-stone-900 grid grid-cols-[249px_1fr] grid-rows-[auto_minmax(0,1fr)] w-[210mm] min-h-[297mm] bg-white outline-black outline-2 -outline-offset-2 print:outline-8 print:rounded-none before:absolute before:-inset-2 before:-z-10 before:rounded-3xl before:bg-zinc-400 after:absolute after:-inset-10 after:-z-10 after:rounded-3xl after:bg-[conic-gradient(from_var(--gradient-angle),hsl(0deg_0%_40%),hsl(0deg_0%_30%),hsl(0deg_0%_20%),hsl(0deg_0%_10%),hsl(0deg_0%_40%),hsl(0deg_0%_40%),hsl(0deg_0%_0%),hsl(0deg_0%_40%))] after:animate-[gradient-spin_20s_linear_infinite] after:blur-2xl print:after:hidden print:before:hidden">
 
-      <header class="col-span-full">
-        <div class="flex items-center justify-between col-span-full px-7 py-4">
-          <svg xmlns="http://www.w3.org/2000/svg" width="116" height="32" fill="none"><g clip-path="url(#a)"><text xml:space="preserve" fill="#fff" font-family="Inter" font-size="18" font-weight="500" letter-spacing="0em" style="white-space:pre"><tspan x="9" y="23.05">Caio Viotti</tspan></text><path fill="#fff" d="M0 0h115.43v32H0z"/><path fill="#000" d="m0 25.45 3.55 6.3 14.22-25.2h28.44L42.65.27H14.22L0 25.45ZM10.66 31.74H32l10.66-18.89h-7.1l-7.11 12.6H14.22l-3.56 6.3Z"/><path fill="#000" fill-rule="evenodd" d="M107.97 13.96c-1.42 0-2.7-.3-3.84-.89A6.73 6.73 0 0 1 100.5 7a6.73 6.73 0 0 1 3.63-6.08 8.02 8.02 0 0 1 3.84-.91c1.41 0 2.68.3 3.8.91A6.73 6.73 0 0 1 115.43 7a6.73 6.73 0 0 1-3.64 6.08c-1.13.6-2.4.9-3.81.9Zm0-3.02a3.65 3.65 0 0 0 3.28-1.91c.32-.61.48-1.29.48-2.04 0-.76-.16-1.44-.48-2.03a3.65 3.65 0 0 0-3.28-1.94c-.71 0-1.36.17-1.94.51-.58.34-1.03.82-1.37 1.43-.32.59-.48 1.27-.48 2.03 0 .75.16 1.43.48 2.04a3.77 3.77 0 0 0 3.3 1.92Z" clip-rule="evenodd"/><path fill="#000" d="M69.96 13.96a8 8 0 0 1-3.79-.89A6.73 6.73 0 0 1 62.54 7 6.73 6.73 0 0 1 66.18.91a7.84 7.84 0 0 1 3.8-.9c1.27 0 2.37.19 3.3.58a6 6 0 0 1 2.42 1.87l-2.35 2.17a4.03 4.03 0 0 0-3.24-1.61 3.8 3.8 0 0 0-2.8 1.1 3.92 3.92 0 0 0-1.08 2.87c0 .78.16 1.48.49 2.08.33.6.8 1.06 1.38 1.38a4.13 4.13 0 0 0 5.25-1.12l2.35 2.18a6.06 6.06 0 0 1-2.42 1.87c-.94.39-2.04.58-3.3.58Z"/><path fill="#000" fill-rule="evenodd" d="M87.66 11.04h-6.22l-1.1 2.67H76.8L82.76.26h3.6l5.99 13.45h-3.6l-1.1-2.67Zm-1.11-2.67-1.99-4.86-2.01 4.86h4Z" clip-rule="evenodd"/><path fill="#000" d="M97.8.26h-3.65V13.7h3.66V.26ZM59.05 31.74l5.78-13.44h-3.6l-3.89 9.14-3.79-9.14h-3.88l5.78 13.44h3.6ZM65.6 18.3h3.65v13.44H65.6V18.3Z"/><path fill="#000" fill-rule="evenodd" d="M74.51 31.11c1.14.6 2.42.89 3.84.89 1.41 0 2.68-.3 3.8-.89a6.73 6.73 0 0 0 3.65-6.08 6.73 6.73 0 0 0-3.64-6.08 7.88 7.88 0 0 0-3.81-.91c-1.42 0-2.7.3-3.84.91a6.73 6.73 0 0 0-3.63 6.08 6.73 6.73 0 0 0 3.63 6.08Zm5.75-2.64c-.57.34-1.2.51-1.91.51a3.77 3.77 0 0 1-3.3-1.91 4.26 4.26 0 0 1-.5-2.04c0-.76.17-1.44.5-2.03.33-.61.78-1.09 1.36-1.43a3.77 3.77 0 0 1 1.94-.51A3.65 3.65 0 0 1 81.63 23c.32.59.48 1.27.48 2.03 0 .75-.16 1.43-.48 2.04a3.6 3.6 0 0 1-1.37 1.4Z" clip-rule="evenodd"/><path fill="#000" d="M110.03 18.3h3.65v13.44h-3.65V18.3ZM85.56 21.17h4.18v10.57h3.65V21.17h7.86v10.57h3.65V21.17h4.18V18.3H85.56v2.87Z"/></g><defs><clipPath id="a"><path fill="#fff" d="M0 0h115.43v32H0z"/></clipPath></defs></svg>
-          <div class="flex flex-col gap-2 items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16">
-              <path stroke="#000" stroke-linecap="round" stroke-linejoin="round" d="M8 15A7 7 0 0 0 8 1m0 14A7 7 0 0 1 8 1m0 14c2.15 0 3.07-4.02 3.07-7 0-2.98-.92-7-3.07-7m0 14c-2.15 0-3.07-4.02-3.07-7 0-2.98.92-7 3.07-7M1.39 5.67H14.6M1.4 10.33H14.6"/>
-            </svg>
-            <a class="text-[10px] leading-none" href="https://caio.viotti.me" target="_blank" rel="noopener noreferrer">caio.viotti.me</a>
+const logoSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="116" height="32" fill="none"><g clip-path="url(#a)"><text xml:space="preserve" fill="#fff" font-family="Inter" font-size="18" font-weight="500" letter-spacing="0em" style="white-space:pre"><tspan x="9" y="23.05">Caio Viotti</tspan></text><path fill="#fff" d="M0 0h115.43v32H0z"/><path fill="#000" d="m0 25.45 3.55 6.3 14.22-25.2h28.44L42.65.27H14.22L0 25.45ZM10.66 31.74H32l10.66-18.89h-7.1l-7.11 12.6H14.22l-3.56 6.3Z"/><path fill="#000" fill-rule="evenodd" d="M107.97 13.96c-1.42 0-2.7-.3-3.84-.89A6.73 6.73 0 0 1 100.5 7a6.73 6.73 0 0 1 3.63-6.08 8.02 8.02 0 0 1 3.84-.91c1.41 0 2.68.3 3.8.91A6.73 6.73 0 0 1 115.43 7a6.73 6.73 0 0 1-3.64 6.08c-1.13.6-2.4.9-3.81.9Zm0-3.02a3.65 3.65 0 0 0 3.28-1.91c.32-.61.48-1.29.48-2.04 0-.76-.16-1.44-.48-2.03a3.65 3.65 0 0 0-3.28-1.94c-.71 0-1.36.17-1.94.51-.58.34-1.03.82-1.37 1.43-.32.59-.48 1.27-.48 2.03 0 .75.16 1.43.48 2.04a3.77 3.77 0 0 0 3.3 1.92Z" clip-rule="evenodd"/><path fill="#000" d="M69.96 13.96a8 8 0 0 1-3.79-.89A6.73 6.73 0 0 1 62.54 7 6.73 6.73 0 0 1 66.18.91a7.84 7.84 0 0 1 3.8-.9c1.27 0 2.37.19 3.3.58a6 6 0 0 1 2.42 1.87l-2.35 2.17a4.03 4.03 0 0 0-3.24-1.61 3.8 3.8 0 0 0-2.8 1.1 3.92 3.92 0 0 0-1.08 2.87c0 .78.16 1.48.49 2.08.33.6.8 1.06 1.38 1.38a4.13 4.13 0 0 0 5.25-1.12l2.35 2.18a6.06 6.06 0 0 1-2.42 1.87c-.94.39-2.04.58-3.3.58Z"/><path fill="#000" fill-rule="evenodd" d="M87.66 11.04h-6.22l-1.1 2.67H76.8L82.76.26h3.6l5.99 13.45h-3.6l-1.1-2.67Zm-1.11-2.67-1.99-4.86-2.01 4.86h4Z" clip-rule="evenodd"/><path fill="#000" d="M97.8.26h-3.65V13.7h3.66V.26ZM59.05 31.74l5.78-13.44h-3.6l-3.89 9.14-3.79-9.14h-3.88l5.78 13.44h3.6ZM65.6 18.3h3.65v13.44H65.6V18.3Z"/><path fill="#000" fill-rule="evenodd" d="M74.51 31.11c1.14.6 2.42.89 3.84.89 1.41 0 2.68-.3 3.8-.89a6.73 6.73 0 0 0 3.65-6.08 6.73 6.73 0 0 0-3.64-6.08 7.88 7.88 0 0 0-3.81-.91c-1.42 0-2.7.3-3.84.91a6.73 6.73 0 0 0-3.63 6.08 6.73 6.73 0 0 0 3.63 6.08Zm5.75-2.64c-.57.34-1.2.51-1.91.51a3.77 3.77 0 0 1-3.3-1.91 4.26 4.26 0 0 1-.5-2.04c0-.76.17-1.44.5-2.03.33-.61.78-1.09 1.36-1.43a3.77 3.77 0 0 1 1.94-.51A3.65 3.65 0 0 1 81.63 23c.32.59.48 1.27.48 2.03 0 .75-.16 1.43-.48 2.04a3.6 3.6 0 0 1-1.37 1.4Z" clip-rule="evenodd"/><path fill="#000" d="M110.03 18.3h3.65v13.44h-3.65V18.3ZM85.56 21.17h4.18v10.57h3.65V21.17h7.86v10.57h3.65V21.17h4.18V18.3H85.56v2.87Z"/></g><defs><clipPath id="a"><path fill="#fff" d="M0 0h115.43v32H0z"/></clipPath></defs></svg>`;
+const globeSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16"><path stroke="#000" stroke-linecap="round" stroke-linejoin="round" d="M8 15A7 7 0 0 0 8 1m0 14A7 7 0 0 1 8 1m0 14c2.15 0 3.07-4.02 3.07-7 0-2.98-.92-7-3.07-7m0 14c-2.15 0-3.07-4.02-3.07-7 0-2.98.92-7 3.07-7M1.39 5.67H14.6M1.4 10.33H14.6"/></svg>`;
+const emailSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="13" fill="none" viewBox="0 0 16 13"><path stroke="#000" d="m.88 3.5 7 4 7-4m-13-3h12a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1h-12a1 1 0 0 1-1-1v-10a1 1 0 0 1 1-1Z"/></svg>`;
+const phoneSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" fill="none" viewBox="0 0 16 15"><path stroke="#000" d="M5.29.5H3.07a2 2 0 0 0-2 2v2c0 5.523 4.477 10 10 10h2a2 2 0 0 0 2-2v-1.382a1 1 0 0 0-.553-.894l-2.416-1.208a1 1 0 0 0-1.396.578l-.297.893a1.21 1.21 0 0 1-1.385.804A6.047 6.047 0 0 1 4.28 6.547a1.21 1.21 0 0 1 .804-1.385l1.108-.37a1 1 0 0 0 .654-1.19L6.26 1.257A1 1 0 0 0 5.29.5Z"/></svg>`;
+const locationSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 15 15"><path fill="#000" d="M4.5 5.5V5a.5.5 0 0 0-.5.5h.5Zm0 1 .354.354L5 6.707V6.5h-.5Zm2 6.5H7v-.207l-.146-.147L6.5 13Zm-1-1H5v.207l.146.147L5.5 12Zm0-1.5H6v-.207l-.146-.147-.354.354Zm-1-1H4v.207l.146.147L4.5 9.5Zm0-1V8a.5.5 0 0 0-.5.5h.5ZM9 .5v2h1v-2H9ZM8.5 3h-1v1h1V3Zm-3 2h-1v1h1V5ZM4 5.5v1h1v-1H4Zm.146.646-.292.293.707.707.293-.292-.708-.708Zm-1 .293L1.354 4.646l-.708.708L2.44 7.146l.707-.707h-.001ZM6 4.5a.5.5 0 0 1-.5.5v1A1.5 1.5 0 0 0 7 4.5H6ZM7.5 3A1.5 1.5 0 0 0 6 4.5h1a.5.5 0 0 1 .5-.5V3ZM3.854 6.439a.503.503 0 0 1-.354.148.5.5 0 0 1-.354-.148l-.707.707a1.5 1.5 0 0 0 2.122 0l-.707-.707ZM9 2.5a.5.5 0 0 1-.5.5v1A1.5 1.5 0 0 0 10 2.5H9Zm-2 12V13H6v1.5h1Zm-.146-1.854-1-1-.708.708 1 1 .708-.708ZM6 12v-1.5H5V12h1Zm-.146-1.854-1-1-.708.708 1 1 .708-.708ZM5 9.5v-1H4v1h1ZM4.5 9h4V8h-4v1Zm4.5.5v.667h1V9.5H9Zm1.833 2.5H13.5v-1h-2.667v1ZM10 11.167c0 .46.373.833.833.833v-1c.092 0 .167.075.167.167h-1ZM9.833 11c.092 0 .167.075.167.167h1C11 10.522 10.478 10 9.833 10v1ZM9 10.167c0 .46.373.833.833.833v-1c.092 0 .167.075.167.167H9ZM8.5 9a.5.5 0 0 1 .5.5h1A1.5 1.5 0 0 0 8.5 8v1Zm-1 5A6.5 6.5 0 0 1 1 7.5H0A7.5 7.5 0 0 0 7.5 15v-1ZM14 7.5A6.5 6.5 0 0 1 7.5 14v1A7.5 7.5 0 0 0 15 7.5h-1ZM7.5 1A6.5 6.5 0 0 1 14 7.5h1A7.5 7.5 0 0 0 7.5 0v1Zm0-1A7.5 7.5 0 0 0 0 7.5h1A6.5 6.5 0 0 1 7.5 1V0Z"/></svg>`;
+const downloadSvg = `<svg aria-hidden="true" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" width="32" height="32"><path d="M7.5 10.5l-3.25-3m3.25 3l3-3m-3 3V1m6 6v6.5h-12V7" stroke="currentColor"></path></svg>`;
+---
+
+<Layout title="CV's CV">
+  <div
+    class='mx-auto grid w-fit content-center justify-items-center gap-7 px-16 print:m-0 print:min-h-[unset] print:p-0 print:[color-adjust:exact] print:[print-color-adjust:exact] print:[webkit-print-color-adjust:exact]'
+  >
+    <div
+      class='relative grid min-h-[297mm] w-[210mm] grid-cols-[249px_1fr] grid-rows-[auto_minmax(0,1fr)] gap-x-6 rounded-2xl bg-white text-stone-900 outline-2 -outline-offset-2 outline-black before:absolute before:-inset-2 before:-z-10 before:rounded-3xl before:bg-zinc-400 after:absolute after:-inset-10 after:-z-10 after:animate-[gradient-spin_20s_linear_infinite] after:rounded-3xl after:bg-[conic-gradient(from_var(--gradient-angle),hsl(0deg_0%_40%),hsl(0deg_0%_30%),hsl(0deg_0%_20%),hsl(0deg_0%_10%),hsl(0deg_0%_40%),hsl(0deg_0%_40%),hsl(0deg_0%_0%),hsl(0deg_0%_40%))] after:blur-2xl print:rounded-none print:outline-8 print:before:hidden print:after:hidden'
+    >
+      <header class='col-span-full'>
+        <div class='col-span-full flex items-center justify-between px-7 py-4'>
+          <span set:html={logoSvg} />
+          <div class='flex flex-col items-center gap-2'>
+            <span set:html={globeSvg} />
+            <a class='text-[10px] leading-none' href='https://caio.viotti.me' target='_blank' rel='noopener noreferrer'
+              >caio.viotti.me</a
+            >
           </div>
-          <div class="flex flex-col gap-2 items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" fill="none" viewBox="0 0 16 15">
-              <path stroke="#000" d="M4.69 6v5m6 0V8.5a2 2 0 0 0-4 0V11 6m-2.5-1.5h1m-3.5-4h12a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1h-12a1 1 0 0 1-1-1v-12a1 1 0 0 1 1-1Z"/>
-            </svg>
-            <a class="text-[10px] leading-none" href="https://linkedin.com/in/caioviotti" target="_blank" rel="noopener noreferrer">linkedin.com/in/caioviotti</a>
+          <div class='flex flex-col items-center gap-2'>
+            <span set:html={emailSvg} />
+            <a
+              class='text-[10px] leading-none'
+              href='https://linkedin.com/in/caioviotti'
+              target='_blank'
+              rel='noopener noreferrer'>linkedin.com/in/caioviotti</a
+            >
           </div>
-          <div class="flex flex-col gap-2 items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="13" fill="none" viewBox="0 0 16 13">
-              <path stroke="#000" d="m.88 3.5 7 4 7-4m-13-3h12a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1h-12a1 1 0 0 1-1-1v-10a1 1 0 0 1 1-1Z"/>
-            </svg>
-            <a class="text-[10px] leading-none" href="mailto:caio@viotti.me">caio@viotti.me</a>
+          <div class='flex flex-col items-center gap-2'>
+            <span set:html={phoneSvg} />
+            <a class='text-[10px] leading-none' href='mailto:caio@viotti.me'>caio@viotti.me</a>
           </div>
-          <div class="flex flex-col gap-2 items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" fill="none" viewBox="0 0 16 15">
-              <path stroke="#000" d="M5.29.5H3.07a2 2 0 0 0-2 2v2c0 5.523 4.477 10 10 10h2a2 2 0 0 0 2-2v-1.382a1 1 0 0 0-.553-.894l-2.416-1.208a1 1 0 0 0-1.396.578l-.297.893a1.21 1.21 0 0 1-1.385.804A6.047 6.047 0 0 1 4.28 6.547a1.21 1.21 0 0 1 .804-1.385l1.108-.37a1 1 0 0 0 .654-1.19L6.26 1.257A1 1 0 0 0 5.29.5Z"/>
-            </svg>
-            <a class="text-[10px] leading-none" href="tel:5561992354318">+55 61 992354318</a>
+          <div class='flex flex-col items-center gap-2'>
+            <span set:html={locationSvg} />
+            <a class='text-[10px] leading-none' href='tel:5561992354318'>+55 61 992354318</a>
           </div>
-          <span class="flex flex-col gap-2 items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 15 15">
-              <path fill="#000" d="M4.5 5.5V5a.5.5 0 0 0-.5.5h.5Zm0 1 .354.354L5 6.707V6.5h-.5Zm2 6.5H7v-.207l-.146-.147L6.5 13Zm-1-1H5v.207l.146.147L5.5 12Zm0-1.5H6v-.207l-.146-.147-.354.354Zm-1-1H4v.207l.146.147L4.5 9.5Zm0-1V8a.5.5 0 0 0-.5.5h.5ZM9 .5v2h1v-2H9ZM8.5 3h-1v1h1V3Zm-3 2h-1v1h1V5ZM4 5.5v1h1v-1H4Zm.146.646-.292.293.707.707.293-.292-.708-.708Zm-1 .293L1.354 4.646l-.708.708L2.44 7.146l.707-.707h-.001ZM6 4.5a.5.5 0 0 1-.5.5v1A1.5 1.5 0 0 0 7 4.5H6ZM7.5 3A1.5 1.5 0 0 0 6 4.5h1a.5.5 0 0 1 .5-.5V3ZM3.854 6.439a.503.503 0 0 1-.354.148.5.5 0 0 1-.354-.148l-.707.707a1.5 1.5 0 0 0 2.122 0l-.707-.707ZM9 2.5a.5.5 0 0 1-.5.5v1A1.5 1.5 0 0 0 10 2.5H9Zm-2 12V13H6v1.5h1Zm-.146-1.854-1-1-.708.708 1 1 .708-.708ZM6 12v-1.5H5V12h1Zm-.146-1.854-1-1-.708.708 1 1 .708-.708ZM5 9.5v-1H4v1h1ZM4.5 9h4V8h-4v1Zm4.5.5v.667h1V9.5H9Zm1.833 2.5H13.5v-1h-2.667v1ZM10 11.167c0 .46.373.833.833.833v-1c.092 0 .167.075.167.167h-1ZM9.833 11c.092 0 .167.075.167.167h1C11 10.522 10.478 10 9.833 10v1ZM9 10.167c0 .46.373.833.833.833v-1c.092 0 .167.075.167.167H9ZM8.5 9a.5.5 0 0 1 .5.5h1A1.5 1.5 0 0 0 8.5 8v1Zm-1 5A6.5 6.5 0 0 1 1 7.5H0A7.5 7.5 0 0 0 7.5 15v-1ZM14 7.5A6.5 6.5 0 0 1 7.5 14v1A7.5 7.5 0 0 0 15 7.5h-1ZM7.5 1A6.5 6.5 0 0 1 14 7.5h1A7.5 7.5 0 0 0 7.5 0v1Zm0-1A7.5 7.5 0 0 0 0 7.5h1A6.5 6.5 0 0 1 7.5 1V0Z"/>
-            </svg>
-            <span class="text-[10px] leading-none [filter:opacity(0.99)]">EU Citizen in Brazil @ UTC-3</span>
+          <span class='flex flex-col items-center gap-2'>
+            <span set:html={locationSvg} />
+            <span class='text-[10px] leading-none [filter:opacity(0.99)]'>EU Citizen in Brazil @ UTC-3</span>
           </span>
         </div>
-        <div class="flex flex-col [&_p]:text-[11px] [&_p]:max-w-none px-7 py-4 bg-black text-stone-300">
-          <h3 class="text-base font-medium text-black leading-none -mt-[1em]">About me</h3>
+        <div class='flex flex-col bg-black px-7 py-4 text-stone-300 [&_p]:max-w-none [&_p]:text-[11px]'>
+          <h3 class='-mt-[1em] text-base leading-none font-medium text-black'>About me</h3>
           <AboutMeContent />
         </div>
       </header>
 
-      <aside class="flex p-7 pr-0 pt-5 flex-col justify-between text-stone-900">
-        <SummarySection title="Skills">
+      <aside class='flex flex-col justify-between p-7 pt-5 pr-0 text-stone-900'>
+        <SummarySection title='Skills'>
           <SummarySectionList skills={skillsSection.data} />
         </SummarySection>
-        <SummarySection title="Education">
-          <div class="flex flex-col">
-            <h4 class="text-[12px] leading-tight font-medium text-stone-400">B.Sc.(Ed) Computer Science</h4>
-            <a class="text-stone-900 text-[11px] w-fit" href="https://www.unb.br/"><span class="[filter:opacity(0.99)]">University of Brasilia</span></a>
-            <a class="text-stone-900 text-[11px] w-fit" href="https://www.usnews.com/education/best-global-universities/universidade-de-brasilia-504217"><span class="[filter:opacity(0.99)]">Top 10 in Brazil</span></a>
-            <p class="text-stone-900 text-[11px]">50% completed (not pursuing)</p>
+        <SummarySection title='Education'>
+          <div class='flex flex-col'>
+            <h4 class='text-[12px] leading-tight font-medium text-stone-400'>B.Sc.(Ed) Computer Science</h4>
+            <a class='w-fit text-[11px] text-stone-900' href='https://www.unb.br/'
+              ><span class='[filter:opacity(0.99)]'>University of Brasilia</span></a
+            >
+            <a
+              class='w-fit text-[11px] text-stone-900'
+              href='https://www.usnews.com/education/best-global-universities/universidade-de-brasilia-504217'
+              ><span class='[filter:opacity(0.99)]'>Top 10 in Brazil</span></a
+            >
+            <p class='text-[11px] text-stone-900'>50% completed (not pursuing)</p>
           </div>
         </SummarySection>
       </aside>
 
-      <main class="p-7 pl-0 pt-5 flex flex-col gap-2">
-        <h3 class="text-base font-medium text-stone-400">Experience</h3>
-        <div class="flex flex-col justify-between flex-1">
-          {renderedRoles.map(({ data, Content }) => (
-            <Role
-              {...data}
-            >
-              <Content />
-            </Role>
-          ))}
+      <main class='flex flex-col gap-2 p-7 pt-5 pl-0'>
+        <h3 class='text-base font-medium text-stone-400'>Experience</h3>
+        <div class='flex flex-1 flex-col justify-between'>
+          {
+            renderedRoles.map(({ data, Content }) => (
+              <Role {...data}>
+                <Content />
+              </Role>
+            ))
+          }
         </div>
       </main>
     </div>
     <a
-      class="mt-4 text-white rounded-full w-8 bg-none [filter:drop-shadow(0px_0px_16px_transparent)] duration-[400ms] drop-shadow [transition:scale_200ms_ease-in,filter_300ms_cubic-bezier(0.8,0.6,0,1)] hover:[filter:drop-shadow(0px_0px_16px_white)] hover:[scale:1.1] print:hidden"
-      href="/Caio Viotti Resume 2025.pdf"
+      class='mt-4 w-8 rounded-full bg-none text-white drop-shadow [filter:drop-shadow(0px_0px_16px_transparent)] duration-[400ms] [transition:scale_200ms_ease-in,filter_300ms_cubic-bezier(0.8,0.6,0,1)] hover:[scale:1.1] hover:[filter:drop-shadow(0px_0px_16px_white)] print:hidden'
+      href='/Caio Viotti Resume 2025.pdf'
       download
     >
-      <svg aria-hidden="true" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" width="32" height="32"><path d="M7.5 10.5l-3.25-3m3.25 3l3-3m-3 3V1m6 6v6.5h-12V7" stroke="currentColor"></path></svg>
+      <span set:html={downloadSvg} />
     </a>
   </div>
 </Layout>
 
-<style lang="scss" is:global>
-@media print {
-  @page {
-    size: a4;
-    margin: 0;
+<style lang='scss' is:global>
+  @media print {
+    @page {
+      size: a4;
+      margin: 0;
+    }
   }
-}
 </style>
