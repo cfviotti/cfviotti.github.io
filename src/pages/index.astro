@@ -190,11 +190,11 @@ const bySlug = Object.fromEntries(hoverRoles.map(r => [r.slug, r]));
     let targetY = 0;
     let currentX = 0;
     let currentY = 0;
-    let speed = 0.05;
+    const speed = 0.05;
 
     function animate() {
-      let distX = targetX - currentX;
-      let distY = targetY - currentY;
+      const distX = targetX - currentX;
+      const distY = targetY - currentY;
 
       currentX = currentX + distX * speed;
       currentY = currentY + distY * speed;
