@@ -82,7 +82,6 @@ const bySlug = Object.fromEntries(hoverRoles.map((r) => [r.slug, r]));
     <p
       class="
         group/main-text text-2xl leading-normal font-extralight text-stone-300
-        transition-all duration-300 ease-in-out
         supports-[not(position-anchor:auto)]:relative
         md:text-3xl
         [&:has([data-role-label]:is(:hover,:focus-visible))_[data-role-label]:not(:is(:hover,:focus-visible))]:opacity-30
@@ -154,7 +153,7 @@ const bySlug = Object.fromEntries(hoverRoles.map((r) => [r.slug, r]));
       >
         <RoleSummary card={bySlug["zazos"]} />
       </AnchoredCard>
-      <span data-role-label class="transition-all duration-300 ease-in-out pointer-events-none">and a handful more</span>
+      <span data-role-label class="transition-opacity duration-300 ease-in-out pointer-events-none">and a handful more</span>
       <AnchoredCard
         name="cjr"
         triggerClass="bg-[oklch(0.82_0.20_254/0.2)] outline-[oklch(0.82_0.20_254)] [&+[data-role-tooltip]]:shadow-[0_0_400px_0_oklch(0.62_0.2_254.15)]"
