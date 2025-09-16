@@ -99,13 +99,11 @@ const endYear = `${endDate.getFullYear()}`;
   </div>
 
   {
-    !suppressed && !Astro.slots.default ?
-      null
-    : !suppressed && (
-        <div class="contents [&_strong]:font-semibold [&_*]:text-[11px] [&_*]:max-w-none [&_li]:p-0 [&_ul]:flex [&_ul]:flex-col [&_ul]:gap-[6px] [&_ul]:list-disc [&_ul]:pl-[17px] print:[&_ul]:pl-[20px] [&_li]:pl-[5px] print:[&_li]:pl-[2px] [&_li]:leading-[1.35] tracking-tight leading-snug">
-          <slot />
-        </div>
-      )
+    !suppressed && Astro.slots.has('default') && (
+      <div class="contents [&_strong]:font-semibold [&_*]:text-[11px] [&_*]:max-w-none [&_li]:p-0 [&_ul]:flex [&_ul]:flex-col [&_ul]:gap-[6px] [&_ul]:list-disc [&_ul]:pl-[17px] print:[&_ul]:pl-[20px] [&_li]:pl-[5px] print:[&_li]:pl-[2px] [&_li]:leading-[1.35] tracking-tight leading-snug">
+        <slot />
+      </div>
+    )
   }
 
   {
@@ -133,7 +131,3 @@ const endYear = `${endDate.getFullYear()}`;
     )
   }
 </section>
-
-<script>
-  console.log(Astro.slots.default);
-</script>
