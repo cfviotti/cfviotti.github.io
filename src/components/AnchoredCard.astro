@@ -51,10 +51,10 @@ const id = `tt-${name}`;
       peer-focus-visible/role:opacity-100
       peer-focus-visible/role:![position-anchor:var(--anchor)]
       [@media(pointer:coarse)]:![position-anchor:auto]
-      supports-[not(top:anchor(top))]:top-[min(100%,100dvh_-_220px)]
-      supports-[not(top:anchor(top))]:left-1/2
-      supports-[not(top:anchor(top))]:origin-left
-      supports-[not(top:anchor(top))]:transform-[translate(-50%,3rem)]
+      [@media(pointer:fine)]:supports-[not(top:anchor(top))]:top-[min(100%,100dvh_-_220px)]
+      [@media(pointer:fine)]:supports-[not(top:anchor(top))]:left-1/2
+      [@media(pointer:fine)]:supports-[not(top:anchor(top))]:origin-left
+      [@media(pointer:fine)]:supports-[not(top:anchor(top))]:transform-[translate(-50%,3rem)]
     "
     style=`--anchor: --role-${name}`
   >
